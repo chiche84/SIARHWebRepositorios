@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIARHWebAPI", "SIARHWeb\SIARHWebAPI.csproj", "{95DA7D63-A60B-4971-9C11-F2FD40B1B7A0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIARH.Aplication", "Aplication\SIARH.Aplication.csproj", "{14AD340B-1BC6-4C56-9A59-230059024045}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIARH.Domain", "Domain\SIARH.Domain.csproj", "{DDD85AAE-6FF1-4815-8F7A-B67586244F72}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIARH.Persistence", "Persistence\SIARH.Persistence.csproj", "{50CA2406-803C-4475-93E7-55C50DE618A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95DA7D63-A60B-4971-9C11-F2FD40B1B7A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95DA7D63-A60B-4971-9C11-F2FD40B1B7A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95DA7D63-A60B-4971-9C11-F2FD40B1B7A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95DA7D63-A60B-4971-9C11-F2FD40B1B7A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14AD340B-1BC6-4C56-9A59-230059024045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14AD340B-1BC6-4C56-9A59-230059024045}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14AD340B-1BC6-4C56-9A59-230059024045}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14AD340B-1BC6-4C56-9A59-230059024045}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDD85AAE-6FF1-4815-8F7A-B67586244F72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDD85AAE-6FF1-4815-8F7A-B67586244F72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDD85AAE-6FF1-4815-8F7A-B67586244F72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDD85AAE-6FF1-4815-8F7A-B67586244F72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50CA2406-803C-4475-93E7-55C50DE618A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50CA2406-803C-4475-93E7-55C50DE618A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50CA2406-803C-4475-93E7-55C50DE618A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50CA2406-803C-4475-93E7-55C50DE618A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54FF728E-139C-4012-B41C-BD0F5BA76D92}
+	EndGlobalSection
+EndGlobal
