@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 using SIARH.Aplication;
+using SIARH.Persistence;
 using SIARH.Persistence.Models;
 
 namespace SIARHWeb.Controllers
@@ -10,12 +11,19 @@ namespace SIARHWeb.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private readonly RefAmbitoRepository refAmbitoRepository;
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IGenericRepository<RefAmbito> genericRepository;
+        //private readonly IGenericRepository<RefAmbito> genericRepository;
 
-        public WeatherForecastController(IGenericRepository<RefAmbito> genericRepository, ILogger<WeatherForecastController> logger)
-        {
-            this.genericRepository = genericRepository;
+        //public WeatherForecastController(IGenericRepository<RefAmbito> genericRepository, ILogger<WeatherForecastController> logger)
+        //{
+        //    this.genericRepository = genericRepository;
+        //    _logger = logger;
+        //}
+
+        public WeatherForecastController(RefAmbitoRepository refAmbitoRepository, ILogger<WeatherForecastController> logger)
+        {           
+            this.refAmbitoRepository = refAmbitoRepository;
             _logger = logger;
         }
 
@@ -37,11 +45,16 @@ namespace SIARHWeb.Controllers
             .ToArray();
         }
 
-        [HttpGet("prueba")]
+        [HttpGet("ambitoGetAll")]
         public async Task<IActionResult> Geti()
         {
-            return Ok(await genericRepository.GetAll());
+            return Ok(await refAmbitoRepository.GetAll());
         }
 
+        [HttpGet("ambitoFilter")]
+        public async Task<IActionResult> FilterBy(string valor)
+        {
+            return Ok(await refAmbitoRepository.FilterBy(valor));
+        }
     }
 }
