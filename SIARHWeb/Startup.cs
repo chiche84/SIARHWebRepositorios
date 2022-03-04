@@ -1,12 +1,12 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 using SIARH.Aplication;
 using SIARH.Persistence;
 using SIARH.Persistence.Models;
-
-
+using SIARH.Persistence.UnitOfWork;
 
 namespace WebAPIAutores1
 {
@@ -54,7 +54,7 @@ namespace WebAPIAutores1
                 });
             });
          
-          
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddDataProtection();
 
@@ -66,6 +66,7 @@ namespace WebAPIAutores1
                 });
             });
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IRefAmbitoRepository, RefAmbitoRepository>();
         }
 

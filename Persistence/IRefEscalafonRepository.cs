@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 using SIARH.Aplication;
 using SIARH.Persistence.Models;
 
 namespace SIARH.Persistence
 {
-    public interface IRefAmbitoRepository : IGenericRepository<RefAmbito>
+    public interface IRefEscalafonRepository : IGenericRepository<RefEscalafon>
     {
-        Task<IEnumerable<RefAmbito>> GetByAmbito();
+        Task<IEnumerable<RefEscalafon>> GetByGrupoNivel(int idGrupoNivel);
     }
 }

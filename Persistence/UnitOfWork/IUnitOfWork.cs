@@ -11,6 +11,7 @@ namespace SIARH.Persistence.UnitOfWork
     public interface IUnitOfWork
     {
         IRefAmbitoRepository RefAmbito { get; }
+        IRefEscalafonRepository RefEscalafon { get; }
         Task CompleteAsync();
         void Dispose();
     }

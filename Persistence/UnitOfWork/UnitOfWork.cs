@@ -17,6 +17,7 @@ namespace SIARH.Persistence.UnitOfWork
         private readonly RRHH_V2Context _context;
         //private readonly ILogger _logger;
         public IRefAmbitoRepository RefAmbito { get; private set; }
+        public IRefEscalafonRepository RefEscalafon { get; private set; }
 
         public UnitOfWork(RRHH_V2Context context)//, ILoggerFactory loggerFactory)
         {
@@ -24,6 +25,7 @@ namespace SIARH.Persistence.UnitOfWork
             //_logger = loggerFactory.CreateLogger("logs");
 
             RefAmbito = new RefAmbitoRepository(context);
+            RefEscalafon = new RefEscalafonRepository(context);
         }
 
         public async Task CompleteAsync()
