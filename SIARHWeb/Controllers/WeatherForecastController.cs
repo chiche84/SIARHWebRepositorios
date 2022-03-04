@@ -11,8 +11,8 @@ namespace SIARHWeb.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private readonly RefAmbitoRepository refAmbitoRepository;
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IRefAmbitoRepository refAmbitoRepository;
+        
         //private readonly IGenericRepository<RefAmbito> genericRepository;
 
         //public WeatherForecastController(IGenericRepository<RefAmbito> genericRepository, ILogger<WeatherForecastController> logger)
@@ -21,10 +21,10 @@ namespace SIARHWeb.Controllers
         //    _logger = logger;
         //}
 
-        public WeatherForecastController(RefAmbitoRepository refAmbitoRepository, ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IRefAmbitoRepository refAmbitoRepository)
         {           
             this.refAmbitoRepository = refAmbitoRepository;
-            _logger = logger;
+            
         }
 
         private static readonly string[] Summaries = new[]
@@ -48,13 +48,13 @@ namespace SIARHWeb.Controllers
         [HttpGet("ambitoGetAll")]
         public async Task<IActionResult> Geti()
         {
-            return Ok(await refAmbitoRepository.GetAll());
+            return Ok(await refAmbitoRepository.All());
         }
 
         [HttpGet("ambitoFilter")]
         public async Task<IActionResult> FilterBy(string valor)
         {
-            return Ok(await refAmbitoRepository.FilterBy(valor));
+            return Ok(await refAmbitoRepository.All());
         }
     }
 }

@@ -66,8 +66,7 @@ namespace WebAPIAutores1
                 });
             });
 
-            services.AddTransient<IGenericRepository<RefAmbito>, EntityFrameworkRepository<RefAmbito>>();
-            services.AddTransient<RefAmbitoRepository>();
+            services.AddTransient<IRefAmbitoRepository, RefAmbitoRepository>();
         }
 
 
