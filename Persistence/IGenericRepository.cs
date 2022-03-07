@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIARH.Aplication
+namespace SIARH.Persistence
 {
     public interface IGenericRepository<T> where T : class
     {

@@ -9,7 +9,7 @@ using AutoMapper;
 using SIARH.Aplication.DTOs;
 using SIARH.Persistence.Models;
 
-namespace SIARH.Aplication.Utilities
+namespace SIARH.Aplication.Mapper
 {
     public class AutoMapperProfiles : Profile
     {

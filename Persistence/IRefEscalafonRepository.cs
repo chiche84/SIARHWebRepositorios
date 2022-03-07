@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using SIARH.Aplication;
 using SIARH.Persistence.Models;
 
 namespace SIARH.Persistence

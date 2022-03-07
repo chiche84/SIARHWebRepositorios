@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
-using SIARH.Aplication;
 using Microsoft.Extensions.Logging;
 using SIARH.Persistence.Models;
 

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-using SIARH.Aplication;
 using SIARH.Persistence.Models;
 
 namespace SIARH.Persistence
