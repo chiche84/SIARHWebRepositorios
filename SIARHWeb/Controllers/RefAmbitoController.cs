@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using SIARH.Aplication;
 using SIARH.Aplication.DTOs;
+using SIARH.Aplication.Services;
 using SIARH.Persistence;
 using SIARH.Persistence.Models;
 using SIARH.Persistence.UnitOfWork;
@@ -28,7 +29,15 @@ namespace SIARHWeb.Controllers
         [HttpGet("ambitoGetAll")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await unitOfWork.RefAmbito.All());
+            BllRefAmbito bllRefAmbito = new BllRefAmbito(unitOfWork); 
+            return Ok(await bllRefAmbito.Filter(new SIARH.Persistence.Filters.RefAmbitoFilter() { EstaActivo = true }));
+        }
+
+        [HttpGet("{name}", Name = "FilterByName")]
+        public async Task<IActionResult> GetFilterByName(string name)
+        {
+            BllRefAmbito bllRefAmbito = new BllRefAmbito(unitOfWork);
+            return Ok(await bllRefAmbito.Filter(new SIARH.Persistence.Filters.RefAmbitoFilter() { AmbitoDesc=name, EstaActivo = true }));
         }
 
         [HttpGet("{id:int}", Name = "GetAmbito")]

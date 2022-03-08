@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
-
+using SIARH.Persistence.Filters;
 using SIARH.Persistence.Models;
 
 namespace SIARH.Persistence
 {
-    public class RefEscalafonRepository : GenericRepository<RefEscalafon>, IRefEscalafonRepository
+    public class RefEscalafonRepository : GenericRepository<RefEscalafon, RefAmbitoFilter>, IRefEscalafonRepository
     {
         public RefEscalafonRepository(RRHH_V2Context context) : base(context)
         {

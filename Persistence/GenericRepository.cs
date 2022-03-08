@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-
+using SIARH.Persistence.Interfaces;
 using SIARH.Persistence.Models;
 
 namespace SIARH.Persistence
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T, U> : IGenericRepository<T, U> where T : class where U : IFilter
     {
         protected RRHH_V2Context _context;
         internal DbSet<T> dbSet;
@@ -56,6 +56,11 @@ namespace SIARH.Persistence
         public virtual async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate)
         {
             return await dbSet.Where(predicate).ToListAsync();
+        }
+
+        public Task<IEnumerable<T>> Filter(U entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

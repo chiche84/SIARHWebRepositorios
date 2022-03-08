@@ -9,10 +9,12 @@ using Microsoft.Extensions.Logging;
 
 using Microsoft.EntityFrameworkCore;
 using SIARH.Persistence.Models;
+using SIARH.Persistence.Filters;
+using SIARH.Persistence.Interfaces;
 
 namespace SIARH.Persistence
 {
-    public class RefAmbitoRepository : GenericRepository<RefAmbito>, IRefAmbitoRepository
+    public class RefAmbitoRepository : GenericRepository<RefAmbito, RefAmbitoFilter>, IRefAmbitoRepository
     {
         
         public RefAmbitoRepository(RRHH_V2Context context) : base(context )
@@ -76,6 +78,24 @@ namespace SIARH.Persistence
         {
             throw new NotImplementedException();
         }
+
+        public async Task<IEnumerable<RefAmbito>> Filter(RefAmbitoFilter filter)
+        {
+            var query = dbSet.AsQueryable();
+
+            if (filter.IdAmbito != 0)
+                query = query.Where(x => x.IdAmbito == filter.IdAmbito);
+
+            if (filter.AmbitoDesc != null)
+                query = query.Where(x => x.AmbitoDesc.Contains(filter.AmbitoDesc));
+
+            if (filter.EstaActivo != null)
+                query = query.Where(x => x.EstaActivo == filter.EstaActivo);
+
+            return await query.ToListAsync();
+        }
+
+       
     }
 }
 
