@@ -1,62 +1,48 @@
-
-using AutoMapper;
-
 using Microsoft.AspNetCore.Mvc;
 
-using SIARH.Aplication;
 using SIARH.Aplication.DTOs;
 using SIARH.Aplication.Services;
-using SIARH.Persistence;
+using SIARH.Persistence.Filters;
 using SIARH.Persistence.Models;
-using SIARH.Persistence.UnitOfWork;
 
 namespace SIARHWeb.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class RefAmbitoController : ControllerBase
-    {
-                
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
+    {           
+        private readonly RefAmbitoService refAmbitoService;
 
-        public RefAmbitoController(IUnitOfWork unitOfWork, IMapper mapper)
-        {           
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
+        public RefAmbitoController(RefAmbitoService refAmbitoService)
+        {  
+            this.refAmbitoService = refAmbitoService;
         }
                     
         [HttpGet("ambitoGetAll")]
         public async Task<IActionResult> GetAll()
         {
-            BllRefAmbito bllRefAmbito = new BllRefAmbito(unitOfWork); 
-            return Ok(await bllRefAmbito.Filter(new SIARH.Persistence.Filters.RefAmbitoFilter() { EstaActivo = true }));
+            return Ok(await refAmbitoService.Filter(new RefAmbitoFilter() { EstaActivo = true }));
         }
 
         [HttpGet("{name}", Name = "FilterByName")]
         public async Task<IActionResult> GetFilterByName(string name)
         {
-            BllRefAmbito bllRefAmbito = new BllRefAmbito(unitOfWork);
-            return Ok(await bllRefAmbito.Filter(new SIARH.Persistence.Filters.RefAmbitoFilter() { AmbitoDesc=name, EstaActivo = true }));
+            return Ok(await refAmbitoService.Filter(new RefAmbitoFilter() { AmbitoDesc = name, EstaActivo = true }));
         }
 
-        [HttpGet("{id:int}", Name = "GetAmbito")]
+        [HttpGet("{id:int}", Name = "GetByIdAmbito")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await unitOfWork.RefAmbito.GetById(id));
+            return Ok(await refAmbitoService.Filter(new RefAmbitoFilter() { IdAmbito = id, EstaActivo = true }));
         }
+
         [HttpPost]
-        public async Task<IActionResult> CreateRefAmbitoRefEscalafon(totalDTO totalDTO)
+        public async Task<IActionResult> CreateRefAmbitoRefEscalafon(RefAmbitoCreacionDTO refAmbitoCreacionDTO)
         {
             if (ModelState.IsValid)
             {
-                RefAmbito refAmbito = mapper.Map<RefAmbito>(totalDTO);
-                RefEscalafon refEscalafon = mapper.Map<RefEscalafon>(totalDTO);
-                await unitOfWork.RefAmbito.Add(refAmbito);
-                await unitOfWork.RefEscalafon.Add(refEscalafon);
-                await unitOfWork.CompleteAsync();
-
-                return CreatedAtRoute("GetAmbito", new { id = refAmbito.IdAmbito }, refAmbito);                
+                RefAmbito refAmbito = await refAmbitoService.Add(refAmbitoCreacionDTO);
+                return CreatedAtRoute("GetByIdAmbito", new { id = refAmbito.IdAmbito }, refAmbito);                
             }
 
             return new JsonResult("No se pudo completar la transaccion") { StatusCode = 500 };

@@ -1,4 +1,7 @@
-﻿using SIARH.Persistence.Filters;
+﻿using AutoMapper;
+
+using SIARH.Aplication.DTOs;
+using SIARH.Persistence.Filters;
 using SIARH.Persistence.Models;
 using SIARH.Persistence.UnitOfWork;
 using System;
@@ -9,26 +12,54 @@ using System.Threading.Tasks;
 
 namespace SIARH.Aplication.Services
 {
-    public class BllRefAmbito //: BLLBase
+    public class RefAmbitoService 
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
 
-        public BllRefAmbito(IUnitOfWork unitOfWork)
+        public RefAmbitoService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;   
+            this.unitOfWork = unitOfWork;
+            this.mapper = mapper;        
+
         }
 
 
         public async Task<IEnumerable<RefAmbito>> Filter(RefAmbitoFilter filter)
         {
-            return await _unitOfWork.RefAmbito.Filter(filter);
+            return await unitOfWork.RefAmbitoRepository.Filter(filter);
+        }
+
+        public async Task<RefAmbito> Add(RefAmbitoCreacionDTO refAmbitoCreacionDTO)
+        {          
+            RefAmbito refAmbito = mapper.Map<RefAmbito>(refAmbitoCreacionDTO);            
+            await unitOfWork.RefAmbitoRepository.Add(refAmbito);
+            await unitOfWork.CompleteAsync();
+            return refAmbito;
+        }
+
+        public async Task<RefAmbito> Upsert(RefAmbitoCreacionDTO refAmbitoCreacionDTO)
+        {
+            RefAmbito refAmbito = mapper.Map<RefAmbito>(refAmbitoCreacionDTO);
+            await unitOfWork.RefAmbitoRepository.Upsert(refAmbito);            
+            await unitOfWork.CompleteAsync();
+            return refAmbito;
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            var refAmbito = await unitOfWork.RefAmbitoRepository.Delete(id);
+            await unitOfWork.CompleteAsync();
+            return refAmbito;
         }
 
         //#region METODOS
         //public object Search(string pName, bool? pActivo)
         //{
-        //    return _unitOfWork.RefAmbito..Where(x => (x.ambitoDesc.Contains(pName.Trim()) || string.IsNullOrEmpty(pName)) && (x.estaActivo == pActivo || pActivo == null)).ToList();
+
+        //    return _unitOfWork.RefAmbito.Where(x => (x.ambitoDesc.Contains(pName.Trim()) || string.IsNullOrEmpty(pName)) && (x.estaActivo == pActivo || pActivo == null)).ToList();
         //}
+
         //public RefAmbito SearchbyIdAmbito(int pId)
         //{
         //    return db.RefAmbito.FirstOrDefault(x => x.idAmbito == pId);

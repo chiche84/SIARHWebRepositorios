@@ -15,10 +15,8 @@ namespace SIARH.Aplication.Mapper
     {
         public AutoMapperProfiles()
         {
-            CreateMap<RefAmbitoCreacionDTO, RefAmbito>();
+            CreateMap<RefAmbitoCreacionDTO, RefAmbito>();            
             CreateMap<RefEscalafonCreacionDTO, RefEscalafon>();
-            CreateMap<totalDTO, RefAmbito>();
-            CreateMap<totalDTO, RefEscalafon>();
         }
     }
 }

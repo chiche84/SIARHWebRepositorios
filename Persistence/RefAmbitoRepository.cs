@@ -10,14 +10,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using SIARH.Persistence.Models;
 using SIARH.Persistence.Filters;
-using SIARH.Persistence.Interfaces;
 
 namespace SIARH.Persistence
 {
     public class RefAmbitoRepository : GenericRepository<RefAmbito, RefAmbitoFilter>, IRefAmbitoRepository
     {
         
-        public RefAmbitoRepository(RRHH_V2Context context) : base(context )
+        public RefAmbitoRepository(RRHH_V2Context context, ILogger logger) : base(context, logger )
         {            
         }
 
@@ -29,10 +28,12 @@ namespace SIARH.Persistence
             }
             catch (Exception ex)
             {
-                //_logger.LogError(ex, "{Repo} All function error", typeof(RefAmbitoRepository));
+                _logger.LogError(ex, "{Repo} All function error", typeof(RefAmbitoRepository));
                 return new List<RefAmbito>();
             }
         }
+
+
         public override async Task<bool> Upsert(RefAmbito entity)
         {
             try
@@ -49,7 +50,7 @@ namespace SIARH.Persistence
             }
             catch (Exception ex)
             {
-                //_logger.LogError(ex, "{Repo} Upsert function error", typeof(RefAmbitoRepository));
+                _logger.LogError(ex, "{Repo} Upsert function error", typeof(RefAmbitoRepository));
                 return false;
             }
         }
@@ -58,27 +59,23 @@ namespace SIARH.Persistence
         {
             try
             {
-                var exist = await dbSet.Where(x => x.IdAmbito == id)
+                var RefAmbito = await dbSet.Where(x => x.IdAmbito == id)
                                         .FirstOrDefaultAsync();
 
-                if (exist == null) return false;
+                if (RefAmbito == null) return false;
 
-                dbSet.Remove(exist);
+                RefAmbito.EstaActivo = false;
 
                 return true;
             }
             catch (Exception ex)
             {
-                //_logger.LogError(ex, "{Repo} Delete function error", typeof(RefAmbitoRepository));
+                _logger.LogError(ex, "{Repo} Delete function error", typeof(RefAmbitoRepository));
                 return false;
             }
         }
-
-        public Task<IEnumerable<RefAmbito>> GetByAmbito()
-        {
-            throw new NotImplementedException();
-        }
-
+             
+        
         public async Task<IEnumerable<RefAmbito>> Filter(RefAmbitoFilter filter)
         {
             var query = dbSet.AsQueryable();

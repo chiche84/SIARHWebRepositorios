@@ -17,14 +17,14 @@ namespace SIARH.Persistence
     {
         protected RRHH_V2Context _context;
         internal DbSet<T> dbSet;
-        //protected readonly ILogger _logger;
+        protected readonly ILogger _logger;
 
 
-        public GenericRepository(RRHH_V2Context context) //,ILogger logger)
+        public GenericRepository(RRHH_V2Context context, ILogger logger)
         {
             this._context = context;
             this.dbSet = context.Set<T>();
-            //this._logger = logger;
+            this._logger = logger;
         }
 
         public virtual Task<IEnumerable<T>> All()

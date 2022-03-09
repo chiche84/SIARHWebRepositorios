@@ -1,11 +1,9 @@
 ﻿
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 using SIARH.Aplication;
+using SIARH.Aplication.Services;
 using SIARH.Persistence;
-using SIARH.Persistence.Models;
 using SIARH.Persistence.UnitOfWork;
 
 namespace WebAPIAutores1
@@ -21,12 +19,14 @@ namespace WebAPIAutores1
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplication();
+
             services.AddControllers();
 
-            services.AddDbContext<RRHH_V2Context>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
-            services.AddEndpointsApiExplorer();
+            services.AddPersistence(Configuration);
 
-          
+            services.AddEndpointsApiExplorer();
+                      
 
             services.AddSwaggerGen(c =>
             {
@@ -54,7 +54,6 @@ namespace WebAPIAutores1
                 });
             });
          
-            services.AddAutoMapper(typeof(Startup));
 
             services.AddDataProtection();
 
@@ -65,9 +64,10 @@ namespace WebAPIAutores1
                     builder.WithOrigins("https://apirequest.io").AllowAnyMethod().AllowAnyHeader();
                 });
             });
-
+            
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IRefAmbitoRepository, RefAmbitoRepository>();
+            services.AddTransient<RefAmbitoService>();
         }
 
 

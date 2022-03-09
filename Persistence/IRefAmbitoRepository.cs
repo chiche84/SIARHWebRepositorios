@@ -11,7 +11,7 @@ namespace SIARH.Persistence
 {
     public interface IRefAmbitoRepository : IGenericRepository<RefAmbito, RefAmbitoFilter>
     {
-        Task<IEnumerable<RefAmbito>> GetByAmbito();
+      
 
     }
 }

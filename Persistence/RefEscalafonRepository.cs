@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+
 using SIARH.Persistence.Filters;
 using SIARH.Persistence.Models;
 
@@ -12,7 +14,7 @@ namespace SIARH.Persistence
 {
     public class RefEscalafonRepository : GenericRepository<RefEscalafon, RefAmbitoFilter>, IRefEscalafonRepository
     {
-        public RefEscalafonRepository(RRHH_V2Context context) : base(context)
+        public RefEscalafonRepository(RRHH_V2Context context, ILogger logger) : base(context, logger)
         {
         }
         public override async Task<bool> Upsert(RefEscalafon entity)
