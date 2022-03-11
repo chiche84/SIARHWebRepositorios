@@ -26,7 +26,7 @@ namespace SIARH.Aplication.Services
 
 
         public async Task<IEnumerable<RefAmbito>> Filter(RefAmbitoFilter filter)
-        {
+        {           
             return await unitOfWork.RefAmbitoRepository.Filter(filter);
         }
 
@@ -34,7 +34,7 @@ namespace SIARH.Aplication.Services
         {          
             RefAmbito refAmbito = mapper.Map<RefAmbito>(refAmbitoCreacionDTO);            
             await unitOfWork.RefAmbitoRepository.Add(refAmbito);
-            await unitOfWork.CompleteAsync();
+            await unitOfWork.CompleteAsync();          
             return refAmbito;
         }
 

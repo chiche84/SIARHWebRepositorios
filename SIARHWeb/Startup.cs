@@ -1,5 +1,10 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+
 using Microsoft.OpenApi.Models;
+
+using Security;
 
 using SIARH.Aplication;
 using SIARH.Aplication.Services;
@@ -19,14 +24,16 @@ namespace WebAPIAutores1
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<SecurityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("securityConnection")));
+
             services.AddApplication();
 
             services.AddControllers();
 
             services.AddPersistence(Configuration);
-
             services.AddEndpointsApiExplorer();
-                      
+
+
 
             services.AddSwaggerGen(c =>
             {
@@ -57,6 +64,8 @@ namespace WebAPIAutores1
 
             services.AddDataProtection();
 
+            services.AddSecurity(Configuration);
+
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
@@ -64,10 +73,10 @@ namespace WebAPIAutores1
                     builder.WithOrigins("https://apirequest.io").AllowAnyMethod().AllowAnyHeader();
                 });
             });
-            
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<IRefAmbitoRepository, RefAmbitoRepository>();
+                       
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<RefAmbitoService>();
+
         }
 
 
