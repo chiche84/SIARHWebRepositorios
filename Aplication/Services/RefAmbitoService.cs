@@ -1,18 +1,21 @@
 ﻿using AutoMapper;
 
 using SIARH.Aplication.DTOs;
+using SIARH.Aplication.Interfaces;
+using SIARH.Aplication.Models;
 using SIARH.Persistence.Filters;
 using SIARH.Persistence.Models;
 using SIARH.Persistence.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SIARH.Aplication.Services
 {
-    public class RefAmbitoService 
+    public class RefAmbitoService : IServicio<RefAmbitoCreacionDTO, RefAmbitoFilter>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
@@ -25,33 +28,64 @@ namespace SIARH.Aplication.Services
         }
 
 
-        public async Task<IEnumerable<RefAmbito>> Filter(RefAmbitoFilter filter)
-        {
-            return await unitOfWork.RefAmbitoRepository.Filter(filter);
-        }
+        //public async Task<IEnumerable<RefAmbito>> Filter(RefAmbitoFilter filter)
+        //{
+        //    return await unitOfWork.RefAmbitoRepository.Filter(filter);
+        //}
 
-        public async Task<RefAmbito> Add(RefAmbitoCreacionDTO refAmbitoCreacionDTO)
-        {          
-            RefAmbito refAmbito = mapper.Map<RefAmbito>(refAmbitoCreacionDTO);            
-            await unitOfWork.RefAmbitoRepository.Add(refAmbito);
-            await unitOfWork.CompleteAsync();
-            return refAmbito;
-        }
+        //public async Task<RefAmbito> Add(RefAmbitoCreacionDTO refAmbitoCreacionDTO)
+        //{          
+        //    RefAmbito refAmbito = mapper.Map<RefAmbito>(refAmbitoCreacionDTO);            
+        //    await unitOfWork.RefAmbitoRepository.Add(refAmbito);
+        //    await unitOfWork.CompleteAsync();
+        //    return refAmbito;
+        //}
 
-        public async Task<RefAmbito> Upsert(RefAmbitoCreacionDTO refAmbitoCreacionDTO)
-        {
-            RefAmbito refAmbito = mapper.Map<RefAmbito>(refAmbitoCreacionDTO);
-            await unitOfWork.RefAmbitoRepository.Upsert(refAmbito);            
-            await unitOfWork.CompleteAsync();
-            return refAmbito;
-        }
+        //public async Task<RefAmbito> Upsert(RefAmbitoCreacionDTO refAmbitoCreacionDTO)
+        //{
+        //    RefAmbito refAmbito = mapper.Map<RefAmbito>(refAmbitoCreacionDTO);
+        //    await unitOfWork.RefAmbitoRepository.Upsert(refAmbito);            
+        //    await unitOfWork.CompleteAsync();
+        //    return refAmbito;
+        //}
 
-        public async Task<bool> Delete(int id)
-        {
-            var refAmbito = await unitOfWork.RefAmbitoRepository.Delete(id);
-            await unitOfWork.CompleteAsync();
-            return refAmbito;
-        }
+        //public async Task<bool> Delete(int id)
+        //{
+        //    var refAmbito = await unitOfWork.RefAmbitoRepository.Delete(id);
+        //    await unitOfWork.CompleteAsync();
+        //    return refAmbito;
+        //}
+
+        //public Task<RefAmbitoCreacionDTO> GetById(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //Task<IRefAmbitoDTO> IServicio<IRefAmbitoDTO, RefAmbitoFilter>.GetById(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+       
+
+        //Task<Result<IRefAmbitoDTO>> IServicio<IRefAmbitoDTO, RefAmbitoFilter>.Delete(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public Task<Result<IRefAmbitoDTO>> Upsert(IRefAmbitoDTO entity)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public Task<Result<IRefAmbitoDTO>> Find(Expression<Func<IRefAmbitoDTO, bool>> predicate)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+      
+
+
 
         //#region METODOS
         //public object Search(string pName, bool? pActivo)

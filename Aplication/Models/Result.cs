@@ -8,29 +8,32 @@ using System.Threading.Tasks;
 
 namespace SIARH.Aplication.Models
 {
-    public class Result<T> where T : IEnumerable
+    public class Result<T> where T : IDTO
     {
-        internal Result(T entity, bool succeeded, IEnumerable<string> errors)
+        //Ctor
+        internal Result(IList<T> entities, bool succeeded, IEnumerable<string> errors)
         {
-            Entity = entity;
+            Entities = entities;
             Succeeded = succeeded;
             Errors = errors.ToArray();
         }
 
-        public T Entity { get; set; }
+        //Prop
+        public IList<T> Entities { get; set; }
 
         public bool Succeeded { get; set; }
 
         public string[] Errors { get; set; }
 
-        public static Result<T> Success(T entity)
+        //Meth
+        public static Result<T> Success(IList<T> entities)
         {
-            return new Result<T>(entity, true, Array.Empty<string>());
+            return new Result<T>(entities, true, Array.Empty<string>());
         }
 
-        public static Result<T> Failure(T entity, IEnumerable<string> errors)
+        public static Result<T> Failure(IList<T> entities, IEnumerable<string> errors)
         {
-            return new Result<T>(entity, false, errors);
+            return new Result<T>(entities, false, errors);
         }
       
     }
