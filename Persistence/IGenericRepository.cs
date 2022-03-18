@@ -16,6 +16,6 @@ namespace SIARH.Persistence
         Task<bool> Delete(int id);
         Task<bool> Upsert(T entity);
         Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate);
-        Task<IEnumerable<T>> Filter(U entity);
+        Task<IEnumerable<T>> Filter(U filter);
     }
 }

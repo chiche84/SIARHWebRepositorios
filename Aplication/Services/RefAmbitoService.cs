@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-
+using SIARH.Aplication.Conditions;
 using SIARH.Aplication.DTOs;
 using SIARH.Aplication.Interfaces;
 using SIARH.Aplication.Models;
@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace SIARH.Aplication.Services
 {
-    public class RefAmbitoService : IServicio<RefAmbitoCreacionDTO, RefAmbitoFilter>
+    public class RefAmbitoService : GenericService<IRefAmbitoDTO, RefAmbitoFilter>, IService<IRefAmbitoDTO, RefAmbitoFilter>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
@@ -25,6 +25,90 @@ namespace SIARH.Aplication.Services
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;        
 
+        }
+
+        public override async Task<Result<IRefAmbitoDTO>> Add(IRefAmbitoDTO entityIn)
+        {
+            RefAmbito refAmbito = mapper.Map<RefAmbito>(entityIn);
+            List<IRefAmbitoDTO> lista = new List<IRefAmbitoDTO>();
+
+            RefAmbitoPreConditions preconditions = new RefAmbitoPreConditions();
+            RefAmbitoPostConditions postconditions = new RefAmbitoPostConditions();
+
+            try
+            {
+                Result<IRefAmbitoDTO> resultPre = preconditions.IsValid(refAmbito).Result;
+
+                if (resultPre.Succeeded)
+                {
+                    await unitOfWork.RefAmbitoRepository.Add(refAmbito);
+
+                    Result<IRefAmbitoDTO> resultPost = postconditions.IsValid(refAmbito).Result;
+
+                    if (resultPost.Succeeded)
+                    {
+                        await unitOfWork.CompleteAsync();
+
+                        List<RefAmbitoEdicionDTO> entityOut = mapper.Map<List<RefAmbitoEdicionDTO>>(refAmbito);
+                        lista.AddRange(entityOut);
+
+                        return Result<IRefAmbitoDTO>.Success(lista);
+                    }
+                    else
+                    {
+                        return resultPost;
+                    }
+                }
+                else
+                {
+                    return resultPre;
+                }
+            }
+            catch (Exception)
+            {
+                return Result<IRefAmbitoDTO>.Failure(lista, new List<string>(){"error"});
+
+                //throw;
+
+            }
+        }
+
+
+        public Task<Result<IRefAmbitoDTO>> Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override async Task<Result<IRefAmbitoDTO>> Filter(RefAmbitoFilter filter)
+        {
+            List<IRefAmbitoDTO> lista = new List<IRefAmbitoDTO>();
+
+            IEnumerable<RefAmbito> entities = await unitOfWork.RefAmbitoRepository.Filter(filter);
+
+            RefAmbitoEdicionDTO entityOut = mapper.Map<RefAmbitoEdicionDTO>(entities.FirstOrDefault());
+
+            lista.Add(entityOut);
+
+
+            var x = Result<IRefAmbitoDTO>.Failure(lista, new string[] {"error", "error2"});
+
+            return x;
+
+        }
+
+        public Task<Result<IRefAmbitoDTO>> Find(Expression<Func<IRefAmbitoDTO, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IRefAmbitoDTO> GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Result<IRefAmbitoDTO>> Upsert(IRefAmbitoDTO entity)
+        {
+            throw new NotImplementedException();
         }
 
 
@@ -66,7 +150,7 @@ namespace SIARH.Aplication.Services
         //    throw new NotImplementedException();
         //}
 
-       
+
 
         //Task<Result<IRefAmbitoDTO>> IServicio<IRefAmbitoDTO, RefAmbitoFilter>.Delete(int id)
         //{
@@ -83,7 +167,7 @@ namespace SIARH.Aplication.Services
         //    throw new NotImplementedException();
         //}
 
-      
+
 
 
 

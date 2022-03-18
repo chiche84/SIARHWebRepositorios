@@ -13,7 +13,5 @@ namespace SIARH.Aplication.DTOs
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(120)]
         public string? AmbitoDesc { get; set; }
-
-        public bool EstaActivo { get; set; }
     }
 }

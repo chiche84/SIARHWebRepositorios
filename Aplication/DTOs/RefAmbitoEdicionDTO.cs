@@ -10,7 +10,7 @@ namespace SIARH.Aplication.DTOs
 {
     public class RefAmbitoEdicionDTO : IRefAmbitoDTO
     {
-        public int IdRefAmbito { get; set; }
+        public int IdAmbito { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(120)]

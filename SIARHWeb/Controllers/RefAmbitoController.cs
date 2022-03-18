@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 
 using SIARH.Aplication.DTOs;
+using SIARH.Aplication.Models;
 using SIARH.Aplication.Services;
 using SIARH.Persistence.Filters;
 using SIARH.Persistence.Models;
+using System.Text.Json;
 
 namespace SIARHWeb.Controllers
 {
@@ -21,7 +23,19 @@ namespace SIARHWeb.Controllers
         [HttpGet("ambitoGetAll")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await refAmbitoService.Filter(new RefAmbitoFilter() { EstaActivo = true }));
+            var x = await refAmbitoService.Filter(new RefAmbitoFilter() { EstaActivo = true });
+
+            //var options = new JsonSerializerOptions { WriteIndented = true };
+            //string jsonString = JsonSerializer.Serialize(weatherForecast, options);
+
+            //string jsonString = JsonSerializer.Serialize(x => x.En);
+
+            //Console.WriteLine(jsonString);
+
+            //return Ok(jsonString);
+
+            //return Ok(x.Entities[0]);
+            return Ok(x);
         }
 
         [HttpGet("{name}", Name = "FilterByName")]
@@ -39,13 +53,18 @@ namespace SIARHWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateRefAmbitoRefEscalafon(RefAmbitoCreacionDTO refAmbitoCreacionDTO)
         {
-            if (ModelState.IsValid)
-            {
-                RefAmbito refAmbito = await refAmbitoService.Add(refAmbitoCreacionDTO);
-                return CreatedAtRoute("GetByIdAmbito", new { id = refAmbito.IdAmbito }, refAmbito);                
-            }
+            //Result<IRefAmbitoDTO> x;
 
-            return new JsonResult("No se pudo completar la transaccion") { StatusCode = 500 };
+            //if (ModelState.IsValid)
+            //{
+
+            var x = await refAmbitoService.Add(refAmbitoCreacionDTO);
+               return  Ok(x);
+
+                
+            //}
+            //return x;
+            //return new Result<IRefAmbitoDTO>() { };  //new JsonResult("No se pudo completar la transaccion") { StatusCode = 500 };
         }
 
     }
