@@ -27,41 +27,45 @@ namespace SIARH.Persistence
             this._logger = logger;
         }
 
-        public virtual Task<IEnumerable<T>> All()
-        {
-            throw new NotImplementedException();
-        }
+    
 
-        public virtual async Task<T> GetById(int id)
-        {
-            return await dbSet.FindAsync(id);
-        }
-
-        public virtual async Task<bool> Add(T entity)
+        public virtual async Task<bool> Create(T entity)
         {
             await dbSet.AddAsync(entity);
             return true;
+        }
+
+        public virtual async Task<bool> Update(T entity)
+        {
+            throw new NotImplementedException();
         }
 
         public virtual async Task<bool> Delete(int id)
         {
             throw new NotImplementedException();
         }
+        
 
-        public virtual Task<bool> Upsert(T entity)
+        public virtual async Task<IEnumerable<T>> Filter(U entity)
         {
             throw new NotImplementedException();
         }
 
-        public virtual async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate)
-        {
-            return await dbSet.Where(predicate).ToListAsync();
-        }
+        //public virtual async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate)
+        //{
+        //    return await dbSet.Where(predicate).ToListAsync();
+        //}
+  
 
-        public Task<IEnumerable<T>> Filter(U entity)
-        {
-            throw new NotImplementedException();
-        }
+        //public virtual Task<IEnumerable<T>> All()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public virtual async Task<T> GetById(int id)
+        //{
+        //    return await dbSet.FindAsync(id);
+        //}
     }
 }
 

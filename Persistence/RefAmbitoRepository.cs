@@ -20,31 +20,17 @@ namespace SIARH.Persistence
         {            
         }
 
-        public override async Task<IEnumerable<RefAmbito>> All()
+        public override async Task<bool> Update(RefAmbito entity)
         {
             try
             {
-                return await dbSet.ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "{Repo} All function error", typeof(RefAmbitoRepository));
-                return new List<RefAmbito>();
-            }
-        }
-
-
-        public override async Task<bool> Upsert(RefAmbito entity)
-        {
-            try
-            {
-                var existingUser = await dbSet.Where(x => x.IdAmbito == entity.IdAmbito)
+                var existingAmbito = await dbSet.Where(x => x.IdAmbito == entity.IdAmbito)
                                                     .FirstOrDefaultAsync();
 
-                if (existingUser == null)
-                    return await Add(entity);
+                if (existingAmbito == null)
+                    return await Create(entity);
 
-                existingUser.AmbitoDesc = entity.AmbitoDesc;
+                existingAmbito.AmbitoDesc = entity.AmbitoDesc;
 
                 return true;
             }
@@ -74,9 +60,8 @@ namespace SIARH.Persistence
                 return false;
             }
         }
-             
         
-        public async Task<IEnumerable<RefAmbito>> Filter(RefAmbitoFilter filter)
+        public override async Task<IEnumerable<RefAmbito>> Filter(RefAmbitoFilter filter)
         {
             var query = dbSet.AsQueryable();
 
@@ -92,7 +77,20 @@ namespace SIARH.Persistence
             return await query.ToListAsync();
         }
 
-       
+        //public override async Task<IEnumerable<RefAmbito>> All()
+        //{
+        //    try
+        //    {
+        //        return await dbSet.ToListAsync();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "{Repo} All function error", typeof(RefAmbitoRepository));
+        //        return new List<RefAmbito>();
+        //    }
+        //}
+
+
     }
 }
 

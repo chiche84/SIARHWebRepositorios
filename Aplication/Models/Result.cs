@@ -24,11 +24,6 @@ namespace SIARH.Aplication.Models
             Errors = errors.ToArray();
         }
 
-        public Result()
-        {
-
-        }
-
         //Prop
         public IList<T> Entities { get; set; }
 
@@ -37,9 +32,11 @@ namespace SIARH.Aplication.Models
         public string[] Errors { get; set; }
 
         //Meth
-        public static Result<T> Success()
+        public static Result<T> Success(T entity)
         {
-            return new Result<T>(true, Array.Empty<string>());
+            List<T> entities = new List<T>();
+            entities.Add(entity);
+            return new Result<T>(entities, true, Array.Empty<string>());
         }
 
         public static Result<T> Success(IList<T> entities)
@@ -47,14 +44,16 @@ namespace SIARH.Aplication.Models
             return new Result<T>(entities, true, Array.Empty<string>());
         }
 
-        public static Result<T> Failure(IList<T> entities, IEnumerable<string> errors)
+        public static Result<T> Failure(T entity, IEnumerable<string> errors)
         {
+            List<T> entities = new List<T>();
+            entities.Add(entity);
             return new Result<T>(entities, false, errors);
         }
 
-        public static Result<T> Failure(IEnumerable<string> errors)
+        public static Result<T> Failure(IList<T> entities, IEnumerable<string> errors)
         {
-            return new Result<T>(false, errors);
+            return new Result<T>(entities, false, errors);
         }
     }
 

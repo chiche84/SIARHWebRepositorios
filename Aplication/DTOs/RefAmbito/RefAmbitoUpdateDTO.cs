@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SIARH.Aplication.DTOs
 {
-    public class RefAmbitoEdicionDTO : IRefAmbitoDTO
+    public class RefAmbitoUpdateDTO : RefAmbitoDTO
     {
         public int IdAmbito { get; set; }
 

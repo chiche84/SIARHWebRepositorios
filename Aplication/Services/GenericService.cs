@@ -10,36 +10,82 @@ using System.Threading.Tasks;
 
 namespace SIARH.Aplication.Services
 {
-    public class GenericService<T, U> : IService<T, U> where T : IDTO where U : IFilter
+    public abstract class GenericService<T, U> where T : IDTO where U : IFilter, new()
     {
-        public virtual async Task<Result<T>> Add(T entity)
+        //command
+        public virtual async Task<Result<T>> Create(T entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Result<T>> Delete(int id)
+        public virtual async Task<Result<T>> Update(T entity)
         {
             throw new NotImplementedException();
         }
 
-        public virtual async Task<Result<T>> Filter(U entity)
+        public virtual async Task<Result<T>> Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Result<T>> Find(Expression<Func<T, bool>> predicate)
+
+        //query
+        protected virtual async Task<List<T>> Filter(U entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<T> GetById(int id)
+        public virtual async Task<List<T>> GetAll()
+        {
+            return await Filter(new U() {});
+        }
+        public virtual async Task<Result<T>> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Result<T>> Upsert(T entity)
+
+        //validation
+        public virtual async Task<Result<T>> CreatePostConditions(T entity)
         {
-            throw new NotImplementedException();
+            List<T> entities = new List<T>();
+            entities.Add(entity);   
+            return Result<T>.Success(entities);
+        }
+
+        public virtual async Task<Result<T>> CreatePreConditions(T entity)
+        {
+            List<T> entities = new List<T>();
+            entities.Add(entity);
+            return Result<T>.Success(entities);
+        }
+
+        public virtual async Task<Result<T>> UpdatePreConditions(T entity)
+        {
+            List<T> entities = new List<T>();
+            entities.Add(entity);
+            return Result<T>.Success(entities);
+        }
+
+        public virtual async Task<Result<T>> UpdatePostConditions(T entity)
+        {
+            List<T> entities = new List<T>();
+            entities.Add(entity);
+            return Result<T>.Success(entities);
+        }
+
+        public virtual async Task<Result<T>> DeletePreConditions(T entity)
+        {
+            List<T> entities = new List<T>();
+            entities.Add(entity);
+            return Result<T>.Success(entities);
+        }
+
+        public virtual async Task<Result<T>> DeletePostConditions(T entity)
+        {
+            List<T> entities = new List<T>();
+            entities.Add(entity);
+            return Result<T>.Success(entities);
         }
     }
 }

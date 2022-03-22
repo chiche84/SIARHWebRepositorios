@@ -15,11 +15,10 @@ namespace SIARH.Aplication.Mapper
     {
         public AutoMapperProfiles()
         {
-            CreateMap<RefAmbitoCreacionDTO, RefAmbito>();
+            CreateMap<RefAmbitoCreateDTO, RefAmbito>();
             //CreateMap<RefAmbitoEdicionDTO, RefAmbito>();
             //CreateMap<RefAmbito, RefAmbitoEdicionDTO>();
-            CreateMap<RefAmbitoEdicionDTO, RefAmbito>();
-            CreateMap<RefAmbito,RefAmbitoEdicionDTO>();
+            CreateMap<RefAmbitoUpdateDTO, RefAmbito>().ReverseMap();
             CreateMap<RefEscalafonCreacionDTO, RefEscalafon>();
 
 

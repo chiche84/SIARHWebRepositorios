@@ -17,7 +17,7 @@ namespace SIARH.Persistence
         public RefEscalafonRepository(RRHH_V2Context context, ILogger logger) : base(context, logger)
         {
         }
-        public override async Task<bool> Upsert(RefEscalafon entity)
+        public override async Task<bool> Update(RefEscalafon entity)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace SIARH.Persistence
                                                     .FirstOrDefaultAsync();
 
                 if (existingEscalafon == null)
-                    return await Add(entity);
+                    return await Create(entity);
 
                 existingEscalafon.EscalafonDesc = entity.EscalafonDesc;
 

@@ -10,12 +10,13 @@ namespace SIARH.Persistence
 {
     public interface IGenericRepository<T, U> where T : class   where U : IFilter
     {
-        Task<IEnumerable<T>> All();
-        Task<T> GetById(int id);
-        Task<bool> Add(T entity);
+        Task<bool> Create(T entity);
+        Task<bool> Update(T entity);
         Task<bool> Delete(int id);
-        Task<bool> Upsert(T entity);
-        Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate);
+        //Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate);
         Task<IEnumerable<T>> Filter(U filter);
+        //Task<IEnumerable<T>> All();
+        //Task<T> GetById(int id);
+
     }
 }

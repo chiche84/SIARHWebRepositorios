@@ -23,7 +23,7 @@ namespace SIARHWeb.Controllers
         [HttpGet("ambitoGetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var x = await refAmbitoService.Filter(new RefAmbitoFilter() { EstaActivo = true });
+            var x = await refAmbitoService.GetAll();
 
             //var options = new JsonSerializerOptions { WriteIndented = true };
             //string jsonString = JsonSerializer.Serialize(weatherForecast, options);
@@ -41,24 +41,24 @@ namespace SIARHWeb.Controllers
         [HttpGet("{name}", Name = "FilterByName")]
         public async Task<IActionResult> GetFilterByName(string name)
         {
-            return Ok(await refAmbitoService.Filter(new RefAmbitoFilter() { AmbitoDesc = name, EstaActivo = true }));
+            return Ok(await refAmbitoService.GetByAmbitoDesc(name));
         }
 
         [HttpGet("{id:int}", Name = "GetByIdAmbito")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await refAmbitoService.Filter(new RefAmbitoFilter() { IdAmbito = id, EstaActivo = true }));
+            return Ok(await refAmbitoService.GetById(id));
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRefAmbitoRefEscalafon(RefAmbitoCreacionDTO refAmbitoCreacionDTO)
+        public async Task<IActionResult> CreateRefAmbitoRefEscalafon(RefAmbitoCreateDTO refAmbitoCreacionDTO)
         {
             //Result<IRefAmbitoDTO> x;
 
             //if (ModelState.IsValid)
             //{
 
-            var x = await refAmbitoService.Add(refAmbitoCreacionDTO);
+            var x = await refAmbitoService.Create(refAmbitoCreacionDTO);
                return  Ok(x);
 
                 

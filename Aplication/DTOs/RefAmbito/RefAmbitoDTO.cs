@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SIARH.Aplication.DTOs
 {
-    public interface IRefAmbitoDTO : IDTO
+    public class RefAmbitoDTO : IDTO
     {      
 
     }
