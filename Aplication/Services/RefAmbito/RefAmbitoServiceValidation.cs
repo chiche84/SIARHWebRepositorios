@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace SIARH.Aplication.Services
 {
-    public partial class RefAmbitoService : GenericService<RefAmbitoDTO, RefAmbitoFilter>
+    public partial class RefAmbitoService 
     {
         public override async Task<Result<RefAmbitoDTO>> CreatePreConditions(RefAmbitoDTO refAmbito)
         {

@@ -13,7 +13,7 @@ using SIARH.Persistence.Models;
 
 namespace SIARH.Persistence
 {
-    public class GenericRepository<T, U> : IGenericRepository<T, U> where T : class where U : IFilter
+    public class GenericRepository<T, U> : IGenericRepository<T, U> where T : class where U : GenericFilter
     {
         protected RRHH_V2Context _context;
         internal DbSet<T> dbSet;

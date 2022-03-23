@@ -14,23 +14,19 @@ using System.Threading.Tasks;
 
 namespace SIARH.Aplication.Services
 {
-    public partial class RefAmbitoService : GenericService<RefAmbitoDTO, RefAmbitoFilter>
+    public partial class RefAmbitoService 
     {
 
         protected override async Task<List<RefAmbitoDTO>> Filter(RefAmbitoFilter filter)
         {
             IEnumerable<RefAmbito> entitiesIn = await unitOfWork.RefAmbitoRepository.Filter(filter);
 
-            List<RefAmbitoUpdateDTO> entitiesOut = mapper.Map<List<RefAmbitoUpdateDTO>>(entitiesIn);
+            List<RefAmbitoDTO> entitiesOut = mapper.Map<List<RefAmbitoDTO>>(entitiesIn);
 
-            List<RefAmbitoDTO> refAmbitoDTOs = new List<RefAmbitoDTO>();
-
-            refAmbitoDTOs.AddRange(entitiesOut);
-
-            return refAmbitoDTOs;
+            return entitiesOut;
         }
 
-        public override async Task<Result<RefAmbitoDTO>> GetById(int id)
+        public async Task<Result<RefAmbitoDTO>> GetById(int id)
         {
             var refAmbitoDTOs = await Filter(new RefAmbitoFilter() { IdAmbito = id, EstaActivo = true });
 
@@ -49,6 +45,18 @@ namespace SIARH.Aplication.Services
             if (refAmbitoDTOs.Count == 0)
             {
                 return Result<RefAmbitoDTO>.Failure(refAmbitoDTOs, new string[] { "No se encuentra Ambito." });
+            }
+
+            return Result<RefAmbitoDTO>.Success(refAmbitoDTOs);
+        }
+
+        public async Task<Result<RefAmbitoDTO>> Get()
+        {
+            var refAmbitoDTOs = await Filter(new RefAmbitoFilter() { EstaActivo = true });
+
+            if (refAmbitoDTOs.Count == 0)
+            {
+                return Result<RefAmbitoDTO>.Failure(refAmbitoDTOs, new string[] { "No se encuentran Ambitos." });
             }
 
             return Result<RefAmbitoDTO>.Success(refAmbitoDTOs);

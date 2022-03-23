@@ -11,8 +11,15 @@ namespace SIARH.Aplication.Models
     public class Result<T> where T : IDTO
     {
         //Ctor
+        internal Result()
+        {
+            Entities = new List<T>();
+            Errors = new string[] { };
+        }
+
         internal Result(bool succeeded, IEnumerable<string> errors)
         {
+            Entities = new List<T>();
             Succeeded = succeeded;
             Errors = errors.ToArray();
         }

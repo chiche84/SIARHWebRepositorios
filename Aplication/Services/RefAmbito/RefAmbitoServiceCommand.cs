@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace SIARH.Aplication.Services
 {
-    public partial class RefAmbitoService : GenericService<RefAmbitoDTO, RefAmbitoFilter>
+    public partial class RefAmbitoService : GenericService<RefAmbitoDTO, RefAmbitoFilter>, IService<RefAmbitoDTO, RefAmbitoFilter>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
@@ -26,10 +26,11 @@ namespace SIARH.Aplication.Services
 
         }
 
-        public override async Task<Result<RefAmbitoDTO>> Create(RefAmbitoDTO entityIn)
+        public async Task<Result<RefAmbitoDTO>> Create(RefAmbitoDTO entityIn)
         {
             try
             {
+                entityIn.EstaActivo = true;
                 Result<RefAmbitoDTO> resultPre = CreatePreConditions(entityIn).Result;
 
                 if (resultPre.Succeeded)
@@ -37,12 +38,12 @@ namespace SIARH.Aplication.Services
                     RefAmbito refAmbito = mapper.Map<RefAmbito>(entityIn);
                     await unitOfWork.RefAmbitoRepository.Create(refAmbito);
 
-                    RefAmbitoUpdateDTO entityOut = mapper.Map<RefAmbitoUpdateDTO>(refAmbito);
-                    
-                    Result<RefAmbitoDTO> resultPost = CreatePostConditions(entityOut).Result;
+                    Result<RefAmbitoDTO> resultPost = CreatePostConditions(entityIn).Result;
                     if (resultPost.Succeeded)
                     {
                         await unitOfWork.CompleteAsync();
+
+                        RefAmbitoDTO entityOut = mapper.Map<RefAmbitoDTO>(refAmbito);
 
                         return  Result<RefAmbitoDTO>.Success(entityOut);
                     }
@@ -61,21 +62,94 @@ namespace SIARH.Aplication.Services
                 return Result<RefAmbitoDTO>.Failure(entityIn, new List<string>(){"error"});
 
                 //throw;
+            }
+        }
+
+        public async Task<Result<RefAmbitoDTO>> Update(RefAmbitoDTO entityIn)
+        {
+            try
+            {
+                entityIn.EstaActivo = true;
+                Result<RefAmbitoDTO> resultPre = UpdatePreConditions(entityIn).Result;
+
+                if (resultPre.Succeeded)
+                {
+                    RefAmbito refAmbito = mapper.Map<RefAmbito>(entityIn);
+                    await unitOfWork.RefAmbitoRepository.Update(refAmbito);
+
+                    RefAmbitoDTO entityOut = mapper.Map<RefAmbitoDTO>(refAmbito);
+
+                    Result<RefAmbitoDTO> resultPost = UpdatePostConditions(entityOut).Result;
+                    if (resultPost.Succeeded)
+                    {
+                        await unitOfWork.CompleteAsync();
+
+                        return Result<RefAmbitoDTO>.Success(entityOut);
+                    }
+                    else
+                    {
+                        return resultPost;
+                    }
+                }
+                else
+                {
+                    return resultPre;
+                }
+            }
+            catch (Exception)
+            {
+                return Result<RefAmbitoDTO>.Failure(entityIn, new List<string>() { "error" });
+
+                //throw;
 
             }
         }
 
-        public Task<Result<RefAmbitoDTO>> Update(RefAmbitoDTO entity)
+        public async Task<Result<RefAmbitoDTO>> Delete(RefAmbitoDTO entityIn)
         {
-            throw new NotImplementedException();
+            try
+            {
+                entityIn.EstaActivo = true;
+                Result<RefAmbitoDTO> resultPre = DeletePreConditions(entityIn).Result;
+
+                if (resultPre.Succeeded)
+                {
+                    RefAmbito refAmbito = mapper.Map<RefAmbito>(entityIn);
+                    bool deleted = await unitOfWork.RefAmbitoRepository.Delete(refAmbito.IdAmbito);
+
+                    if (deleted)
+                    {
+                        Result<RefAmbitoDTO> resultPost = DeletePostConditions(entityIn).Result;
+                        if (resultPost.Succeeded)
+                        {
+                            await unitOfWork.CompleteAsync();
+
+                            return Result<RefAmbitoDTO>.Success(entityIn);
+                        }
+                        else
+                        {
+                            return resultPost;
+                        }
+                    }
+                    else
+                    {
+                        return Result<RefAmbitoDTO>.Failure(entityIn, new[] { "DB Error al Intentar Eliminar el Ambito." });
+                    }
+                }
+                else
+                {
+                    return resultPre;
+                }
+            }
+            catch (Exception)
+            {
+                return Result<RefAmbitoDTO>.Failure(entityIn, new List<string>() { "error" });
+
+                //throw;
+
+            }
         }
 
-        public Task<Result<RefAmbitoDTO>> Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-       
-
+    
     }
 }

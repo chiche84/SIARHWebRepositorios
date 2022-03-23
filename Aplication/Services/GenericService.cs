@@ -3,6 +3,7 @@ using SIARH.Aplication.Models;
 using SIARH.Persistence.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -10,36 +11,10 @@ using System.Threading.Tasks;
 
 namespace SIARH.Aplication.Services
 {
-    public abstract class GenericService<T, U> where T : IDTO where U : IFilter, new()
+    public abstract class GenericService<T, U> where T : IDTO where U : GenericFilter, new()
     {
-        //command
-        public virtual async Task<Result<T>> Create(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual async Task<Result<T>> Update(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual async Task<Result<T>> Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-
         //query
         protected virtual async Task<List<T>> Filter(U entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual async Task<List<T>> GetAll()
-        {
-            return await Filter(new U() {});
-        }
-        public virtual async Task<Result<T>> GetById(int id)
         {
             throw new NotImplementedException();
         }
@@ -87,5 +62,22 @@ namespace SIARH.Aplication.Services
             entities.Add(entity);
             return Result<T>.Success(entities);
         }
+
+        //utils
+        //public bool IntegrityCheck(T entity, string key, int value)
+        //{
+        //    try
+        //    {
+        //        ObjectParameter errorRetornado = new ObjectParameter("error", typeof(String));
+        //        msp.spCheckDELETE(entity.GetType().Name, pObject.idCalendario, errorRetornado);
+        //        this.error = errorRetornado.Value.ToString();
+        //        return (error == "True") ? false : true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        this.error = "Error" + ex.Message;
+        //        return false;
+        //    }
+        //}
     }
 }

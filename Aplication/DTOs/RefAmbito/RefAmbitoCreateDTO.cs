@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SIARH.Aplication.DTOs
 {
-    public class RefAmbitoCreateDTO : RefAmbitoDTO
+    public class RefAmbitoCreateDTO
     {
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(120)]

@@ -24,14 +24,11 @@ namespace SIARH.Persistence
         {
             try
             {
-                var existingAmbito = await dbSet.Where(x => x.IdAmbito == entity.IdAmbito)
-                                                    .FirstOrDefaultAsync();
+                var existingAmbito = await dbSet.Where(x => x.IdAmbito == entity.IdAmbito).FirstOrDefaultAsync();
 
-                if (existingAmbito == null)
-                    return await Create(entity);
+                if (existingAmbito == null) return false;
 
                 existingAmbito.AmbitoDesc = entity.AmbitoDesc;
-
                 return true;
             }
             catch (Exception ex)
@@ -45,13 +42,11 @@ namespace SIARH.Persistence
         {
             try
             {
-                var RefAmbito = await dbSet.Where(x => x.IdAmbito == id)
-                                        .FirstOrDefaultAsync();
+                var existingAmbito = await dbSet.Where(x => x.IdAmbito == id).FirstOrDefaultAsync();
 
-                if (RefAmbito == null) return false;
+                if (existingAmbito == null) return false;
 
-                RefAmbito.EstaActivo = false;
-
+                existingAmbito.EstaActivo = false;
                 return true;
             }
             catch (Exception ex)
@@ -69,6 +64,9 @@ namespace SIARH.Persistence
                 query = query.Where(x => x.IdAmbito == filter.IdAmbito);
 
             if (filter.AmbitoDesc != null)
+                query = query.Where(x => x.AmbitoDesc == filter.AmbitoDesc);
+
+            if (filter.AmbitoDescContains != null)
                 query = query.Where(x => x.AmbitoDesc.Contains(filter.AmbitoDesc));
 
             if (filter.EstaActivo != null)
@@ -76,20 +74,6 @@ namespace SIARH.Persistence
 
             return await query.ToListAsync();
         }
-
-        //public override async Task<IEnumerable<RefAmbito>> All()
-        //{
-        //    try
-        //    {
-        //        return await dbSet.ToListAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex, "{Repo} All function error", typeof(RefAmbitoRepository));
-        //        return new List<RefAmbito>();
-        //    }
-        //}
-
 
     }
 }

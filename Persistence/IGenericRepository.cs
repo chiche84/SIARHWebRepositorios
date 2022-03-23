@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SIARH.Persistence
 {
-    public interface IGenericRepository<T, U> where T : class   where U : IFilter
+    public interface IGenericRepository<T, U> where T : class   where U : GenericFilter
     {
         Task<bool> Create(T entity);
         Task<bool> Update(T entity);
