@@ -18,7 +18,7 @@ namespace SIARH.Aplication.Services
     {
         public override async Task<Result<RefEscalafonDTO>> CreatePreConditions(RefEscalafonDTO refEscalafon)
         {
-            RefEscalafonCreateDTO refEscalafonCreacion = (RefEscalafonCreateDTO)refEscalafon;
+            RefEscalafonCreateDTO refEscalafonCreacion = mapper.Map<RefEscalafonCreateDTO>(refEscalafon);
 
             List<string> errors = new List<string>();
 
