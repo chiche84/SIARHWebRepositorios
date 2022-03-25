@@ -26,22 +26,10 @@ namespace SIARHWeb.Controllers
         [HttpGet("ambitoGetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var x = await refAmbitoService.Get();
-
-            //var options = new JsonSerializerOptions { WriteIndented = true };
-            //string jsonString = JsonSerializer.Serialize(weatherForecast, options);
-
-            //string jsonString = JsonSerializer.Serialize(x => x.En);
-
-            //Console.WriteLine(jsonString);
-
-            //return Ok(jsonString);
-
-            //return Ok(x.Entities[0]);
-            return Ok(x);
+            return Ok(await refAmbitoService.Get());
         }
 
-        [HttpGet("{name}", Name = "FilterByName")]
+        [HttpGet("FilterByName")]
         public async Task<IActionResult> GetFilterByName(string name)
         {
             return Ok(await refAmbitoService.GetByAmbitoDesc(name));
@@ -56,59 +44,38 @@ namespace SIARHWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateRefAmbito(RefAmbitoCreateDTO refAmbitoCreacionDTO)
         {
-            //Result<IRefAmbitoDTO> x;
+            if (ModelState.IsValid)
+            {
+                RefAmbitoDTO refAmbitoDTO = new RefAmbitoDTO() {AmbitoDesc = refAmbitoCreacionDTO.AmbitoDesc };
 
-            //if (ModelState.IsValid)
-            //{
-            RefAmbitoDTO refAmbitoDTO = new RefAmbitoDTO() {AmbitoDesc = refAmbitoCreacionDTO.AmbitoDesc };
-
-            var x = await refAmbitoService.Create(refAmbitoDTO);
-            return Ok(x);
-
-
-            //}
-            //return x;
-            //return new Result<IRefAmbitoDTO>() { };  //new JsonResult("No se pudo completar la transaccion") { StatusCode = 500 };
+                return Ok(await refAmbitoService.Create(refAmbitoDTO));
+            }
+            return BadRequest();
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateRefAmbito(RefAmbitoUpdateDTO refAmbitoUpdateDTO)
         {
-            //Result<IRefAmbitoDTO> x;
+            if (ModelState.IsValid)
+            {
+                RefAmbitoDTO refAmbitoDTO = mapper.Map<RefAmbitoDTO>(refAmbitoUpdateDTO);
 
-            //if (ModelState.IsValid)
-            //{
-            //RefAmbitoDTO refAmbitoDTO = (RefAmbitoDTO)refAmbitoUpdateDTO;
-
-            RefAmbitoDTO refAmbitoDTO = mapper.Map<RefAmbitoDTO>(refAmbitoUpdateDTO);
-
-            var x = await refAmbitoService.Update(refAmbitoDTO);
-            return Ok(x);
-
-
-            //}
-            //return x;
-            //return new Result<IRefAmbitoDTO>() { };  //new JsonResult("No se pudo completar la transaccion") { StatusCode = 500 };
+                return Ok(await refAmbitoService.Update(refAmbitoDTO));
+            }
+            return BadRequest();
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteRefAmbito(RefAmbitoUpdateDTO refAmbitoUpdateDTO)
         {
-            //Result<IRefAmbitoDTO> x;
+            if (ModelState.IsValid)
+            {
+                RefAmbitoDTO refAmbitoDTO = mapper.Map<RefAmbitoDTO>(refAmbitoUpdateDTO);
 
-            //if (ModelState.IsValid)
-            //{
+                return Ok(await refAmbitoService.Delete(refAmbitoDTO));
+            }
 
-            RefAmbitoDTO refAmbitoDTO = mapper.Map<RefAmbitoDTO>(refAmbitoUpdateDTO);
-
-
-            var x = await refAmbitoService.Delete(refAmbitoDTO);
-            return Ok(x);
-
-
-            //}
-            //return x;
-            //return new Result<IRefAmbitoDTO>() { };  //new JsonResult("No se pudo completar la transaccion") { StatusCode = 500 };
+            return BadRequest();
         }
 
     }

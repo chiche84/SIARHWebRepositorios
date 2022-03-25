@@ -68,6 +68,7 @@ namespace WebAPIAutores1
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IRefAmbitoRepository, RefAmbitoRepository>();
             services.AddTransient<RefAmbitoService>();
+            services.AddTransient<RefEscalafonService>();
         }
 
 

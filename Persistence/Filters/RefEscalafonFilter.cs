@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 
 namespace SIARH.Persistence.Filters
 {
-    public class RefAmbitoFilter : GenericFilter
+    public class RefEscalafonFilter : GenericFilter
     {
-        public int IdAmbito { get; set; }
-        public string AmbitoDesc { get; set; }
+        public int IdEscalafon { get; set; }
+        public string EscalafonDesc { get; set; } = null!;
+        public string? Nomenclatura { get; set; }
         public bool? EstaActivo { get; set; }
-        public DateTime? FechaEliminacion { get; set; }
-        public string AmbitoDescContains { get; set; }
+        public int? IdGrupoNivel { get; set; }
+
+        public string EscalafonDescContains { get; set; } 
+
     }
 }
