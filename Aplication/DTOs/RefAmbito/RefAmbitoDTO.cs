@@ -6,11 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIARH.Aplication.DTOs
+namespace SIARH.Aplication.DTOs.RefAmbito
 {
-    public class RefAmbitoDTO : RefAmbitoUpdateDTO, IDTO
+    public class RefAmbitoDTO : IDTO
     {
-        public bool EstaActivo { get; set; }
 
     }
 }

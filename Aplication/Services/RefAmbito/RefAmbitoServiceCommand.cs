@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SIARH.Aplication.DTOs;
+using SIARH.Aplication.DTOs.RefAmbito;
 using SIARH.Aplication.Interfaces;
 using SIARH.Aplication.Models;
 using SIARH.Persistence.Filters;
@@ -30,7 +31,6 @@ namespace SIARH.Aplication.Services
         {
             try
             {
-                entityIn.EstaActivo = true;
                 Result<RefAmbitoDTO> resultPre = CreatePreConditions(entityIn).Result;
 
                 if (resultPre.Succeeded)
@@ -43,9 +43,11 @@ namespace SIARH.Aplication.Services
                     {
                         await unitOfWork.CompleteAsync();
 
-                        RefAmbitoDTO entityOut = mapper.Map<RefAmbitoDTO>(refAmbito);
+                        RefAmbitoUpdateDTO entityOut = mapper.Map<RefAmbitoUpdateDTO>(refAmbito);
 
-                        return  Result<RefAmbitoDTO>.Success(entityOut);
+                        var response =  Result<RefAmbitoDTO>.Success(entityOut);
+
+                        return response;
                     }
                     else
                     {
@@ -60,7 +62,6 @@ namespace SIARH.Aplication.Services
             catch (Exception)
             {
                 return Result<RefAmbitoDTO>.Failure(entityIn, new List<string>(){"error"});
-
                 //throw;
             }
         }
@@ -69,7 +70,6 @@ namespace SIARH.Aplication.Services
         {
             try
             {
-                entityIn.EstaActivo = true;
                 Result<RefAmbitoDTO> resultPre = UpdatePreConditions(entityIn).Result;
 
                 if (resultPre.Succeeded)
@@ -109,7 +109,6 @@ namespace SIARH.Aplication.Services
         {
             try
             {
-                entityIn.EstaActivo = true;
                 Result<RefAmbitoDTO> resultPre = DeletePreConditions(entityIn).Result;
 
                 if (resultPre.Succeeded)

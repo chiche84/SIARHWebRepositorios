@@ -17,7 +17,7 @@ namespace SIARH.Aplication.Services
     public partial class RefEscalafonService 
     {
 
-        protected override async Task<List<RefEscalafonDTO>> Filter(RefEscalafonFilter filter)
+        protected  async Task<List<RefEscalafonDTO>> Filter(RefEscalafonFilter filter)
         {
             IEnumerable<RefEscalafon> entitiesIn = await unitOfWork.RefEscalafonRepository.Filter(filter);
 

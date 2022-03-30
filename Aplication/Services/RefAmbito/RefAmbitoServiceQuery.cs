@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SIARH.Aplication.DTOs;
+using SIARH.Aplication.DTOs.RefAmbito;
 using SIARH.Aplication.Interfaces;
 using SIARH.Aplication.Models;
 using SIARH.Persistence.Filters;
@@ -17,49 +18,55 @@ namespace SIARH.Aplication.Services
     public partial class RefAmbitoService 
     {
 
-        protected override async Task<List<RefAmbitoDTO>> Filter(RefAmbitoFilter filter)
+        protected async Task<List<RefAmbitoViewDTO>> Filter(RefAmbitoFilter filter)
         {
             IEnumerable<RefAmbito> entitiesIn = await unitOfWork.RefAmbitoRepository.Filter(filter);
 
-            List<RefAmbitoDTO> entitiesOut = mapper.Map<List<RefAmbitoDTO>>(entitiesIn);
+            List<RefAmbitoViewDTO> entitiesOut = mapper.Map<List<RefAmbitoViewDTO>>(entitiesIn);
 
             return entitiesOut;
         }
 
         public async Task<Result<RefAmbitoDTO>> GetById(int id)
         {
-            var refAmbitoDTOs = await Filter(new RefAmbitoFilter() { IdAmbito = id, EstaActivo = true });
+            List<RefAmbitoDTO> entitiesOut = new List<RefAmbitoDTO>();
 
-            if (refAmbitoDTOs.Count != 1)
+            entitiesOut.AddRange( await Filter(new RefAmbitoFilter() { IdAmbito = id, EstaActivo = true }));
+
+            if (entitiesOut.Count != 1)
             {
-                return Result<RefAmbitoDTO>.Failure(refAmbitoDTOs, new string[] { "No se encuentra Ambito."});
+                return Result<RefAmbitoDTO>.Failure(entitiesOut, new string[] { "No se encuentra Ambito."});
             }
 
-            return Result<RefAmbitoDTO>.Success(refAmbitoDTOs);
+            return Result<RefAmbitoDTO>.Success(entitiesOut);
         }
 
         public async Task<Result<RefAmbitoDTO>> GetByAmbitoDesc(string ambitoDesc)
         {
-            var refAmbitoDTOs = await Filter(new RefAmbitoFilter() { AmbitoDesc = ambitoDesc, EstaActivo = true });
+            List<RefAmbitoDTO> entitiesOut = new List<RefAmbitoDTO>();
 
-            if (refAmbitoDTOs.Count == 0)
+            entitiesOut.AddRange(await Filter(new RefAmbitoFilter() { AmbitoDesc = ambitoDesc, EstaActivo = true }));
+
+            if (entitiesOut.Count == 0)
             {
-                return Result<RefAmbitoDTO>.Failure(refAmbitoDTOs, new string[] { "No se encuentra Ambito." });
+                return Result<RefAmbitoDTO>.Failure(entitiesOut, new string[] { "No se encuentra Ambito." });
             }
 
-            return Result<RefAmbitoDTO>.Success(refAmbitoDTOs);
+            return Result<RefAmbitoDTO>.Success(entitiesOut);
         }
 
         public async Task<Result<RefAmbitoDTO>> Get()
         {
-            var refAmbitoDTOs = await Filter(new RefAmbitoFilter() { EstaActivo = true });
+            List<RefAmbitoDTO> entitiesOut = new List<RefAmbitoDTO>();
 
-            if (refAmbitoDTOs.Count == 0)
+            entitiesOut.AddRange(await Filter(new RefAmbitoFilter() { EstaActivo = true }));
+
+            if (entitiesOut.Count == 0)
             {
-                return Result<RefAmbitoDTO>.Failure(refAmbitoDTOs, new string[] { "No se encuentran Ambitos." });
+                return Result<RefAmbitoDTO>.Failure(entitiesOut, new string[] { "No se encuentran Ambitos." });
             }
 
-            return Result<RefAmbitoDTO>.Success(refAmbitoDTOs);
+            return Result<RefAmbitoDTO>.Success(entitiesOut);
         }
     }
 }

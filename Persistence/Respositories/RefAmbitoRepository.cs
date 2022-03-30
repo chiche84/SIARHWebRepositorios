@@ -20,6 +20,21 @@ namespace SIARH.Persistence
         {            
         }
 
+        public override async Task<bool> Create(RefAmbito entity)
+        {
+            try
+            {
+                entity.EstaActivo = true;
+                await dbSet.AddAsync(entity);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{Repo} Upsert function error", typeof(RefAmbitoRepository));
+                return false;
+            }
+        }
+
         public override async Task<bool> Update(RefAmbito entity)
         {
             try

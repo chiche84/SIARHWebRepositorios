@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 using SIARH.Aplication.DTOs;
+using SIARH.Aplication.DTOs.RefAmbito;
 using SIARH.Aplication.Models;
 using SIARH.Aplication.Services;
 using SIARH.Persistence.Filters;
@@ -26,7 +27,13 @@ namespace SIARHWeb.Controllers
         [HttpGet("ambitoGetAll")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await refAmbitoService.Get());
+            var response = await refAmbitoService.Get();
+
+            var lista = mapper.Map<Result<RefAmbitoViewDTO>>(response);
+
+            //var lista = mapper.Map<List<RefAmbitoViewDTO>>(response.Entities);
+
+            return Ok(lista);
         }
 
         [HttpGet("FilterByName")]
@@ -46,9 +53,9 @@ namespace SIARHWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                RefAmbitoDTO refAmbitoDTO = new RefAmbitoDTO() {AmbitoDesc = refAmbitoCreacionDTO.AmbitoDesc };
+                //var response = await refAmbitoService.Create(refAmbitoCreacionDTO);
 
-                return Ok(await refAmbitoService.Create(refAmbitoDTO));
+                return Ok(await refAmbitoService.Create(refAmbitoCreacionDTO));
             }
             return BadRequest();
         }
@@ -58,9 +65,9 @@ namespace SIARHWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                RefAmbitoDTO refAmbitoDTO = mapper.Map<RefAmbitoDTO>(refAmbitoUpdateDTO);
+                //RefAmbitoDTO refAmbitoDTO = mapper.Map<RefAmbitoDTO>(refAmbitoUpdateDTO);
 
-                return Ok(await refAmbitoService.Update(refAmbitoDTO));
+                return Ok(await refAmbitoService.Update(refAmbitoUpdateDTO));
             }
             return BadRequest();
         }
@@ -70,9 +77,9 @@ namespace SIARHWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                RefAmbitoDTO refAmbitoDTO = mapper.Map<RefAmbitoDTO>(refAmbitoUpdateDTO);
+                //RefAmbitoDTO refAmbitoDTO = mapper.Map<RefAmbitoDTO>(refAmbitoUpdateDTO);
 
-                return Ok(await refAmbitoService.Delete(refAmbitoDTO));
+                return Ok(await refAmbitoService.Delete(refAmbitoUpdateDTO));
             }
 
             return BadRequest();

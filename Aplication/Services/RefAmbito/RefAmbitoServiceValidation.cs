@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SIARH.Aplication.DTOs;
+using SIARH.Aplication.DTOs.RefAmbito;
 using SIARH.Aplication.Interfaces;
 using SIARH.Aplication.Models;
 using SIARH.Persistence.Filters;
@@ -18,7 +19,7 @@ namespace SIARH.Aplication.Services
     {
         public override async Task<Result<RefAmbitoDTO>> CreatePreConditions(RefAmbitoDTO refAmbito)
         {
-            RefAmbitoCreateDTO refAmbitoCreacion = mapper.Map<RefAmbitoCreateDTO>(refAmbito);
+            RefAmbitoCreateDTO refAmbitoCreacion = (RefAmbitoCreateDTO)refAmbito;
 
             List<string> errors = new List<string>();
 
@@ -39,16 +40,16 @@ namespace SIARH.Aplication.Services
             }
             catch (Exception)
             {
-                return Result<RefAmbitoDTO>.Failure(refAmbito, new string[] { "Excepción en la evaluación de Pre Condiciones" });
+                return Result<RefAmbitoDTO>.Failure(refAmbitoCreacion, new string[] { "Excepción en la evaluación de Pre Condiciones" });
                 throw;
             }
 
             if (errors.Count > 0)
             {
-                return Result<RefAmbitoDTO>.Failure(refAmbito, errors.ToArray());
+                return Result<RefAmbitoDTO>.Failure(refAmbitoCreacion, errors.ToArray());
             }
 
-            return Result<RefAmbitoDTO>.Success(refAmbito);
+            return Result<RefAmbitoDTO>.Success(refAmbitoCreacion);
         }
 
 

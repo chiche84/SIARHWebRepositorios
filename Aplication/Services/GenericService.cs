@@ -14,11 +14,6 @@ namespace SIARH.Aplication.Services
     public abstract class GenericService<T, U> where T : IDTO where U : GenericFilter, new()
     {
         //query
-        protected virtual async Task<List<T>> Filter(U entity)
-        {
-            throw new NotImplementedException();
-        }
-
 
         //validation
         public virtual async Task<Result<T>> CreatePostConditions(T entity)
