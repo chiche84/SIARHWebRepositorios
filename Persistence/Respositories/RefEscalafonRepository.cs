@@ -57,7 +57,9 @@ namespace SIARH.Persistence
 
         public override async Task<IEnumerable<RefEscalafon>> Filter(RefEscalafonFilter filter)
         {
-            var query = dbSet.AsQueryable();
+            //var query = dbSet.AsQueryable();
+
+            var query = _context.RefEscalafons.Include(x => x.IdGrupoNivelNavigation).AsQueryable();
 
             if (filter.IdEscalafon != 0)
                 query = query.Where(x => x.IdEscalafon == filter.IdEscalafon);

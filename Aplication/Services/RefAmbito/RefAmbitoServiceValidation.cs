@@ -26,7 +26,7 @@ namespace SIARH.Aplication.Services
             try
             {
                 //01
-                if (refAmbito == null)
+                if (refAmbitoCreacion == null)
                 {
                     errors.Add("El Ambito no posee Datos.");
                 }

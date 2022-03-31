@@ -18,11 +18,11 @@ namespace SIARH.Aplication.Services
     public partial class RefAmbitoService 
     {
 
-        protected async Task<List<RefAmbitoViewDTO>> Filter(RefAmbitoFilter filter)
+        protected async Task<List<RefAmbitoGetDTO>> Filter(RefAmbitoFilter filter)
         {
             IEnumerable<RefAmbito> entitiesIn = await unitOfWork.RefAmbitoRepository.Filter(filter);
 
-            List<RefAmbitoViewDTO> entitiesOut = mapper.Map<List<RefAmbitoViewDTO>>(entitiesIn);
+            List<RefAmbitoGetDTO> entitiesOut = mapper.Map<List<RefAmbitoGetDTO>>(entitiesIn);
 
             return entitiesOut;
         }

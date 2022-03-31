@@ -29,7 +29,7 @@ namespace SIARHWeb.Controllers
         {
             var response = await refAmbitoService.Get();
 
-            var lista = mapper.Map<Result<RefAmbitoViewDTO>>(response);
+            var lista = mapper.Map<Result<RefAmbitoGetDTO>>(response);
 
             //var lista = mapper.Map<List<RefAmbitoViewDTO>>(response.Entities);
 

@@ -8,17 +8,19 @@ using System.Threading.Tasks;
 
 namespace SIARH.Aplication.DTOs.RefEscalafon
 {
-    public class RefEscalafonCreateDTO : RefEscalafonDTO
+    public class RefEscalafonGetDTO : RefEscalafonDTO
     {
-        [Required(ErrorMessage = "El campo {0} es requerido")]
-        [StringLength(120)]
+        public int IdEscalafon { get; set; }
+
         public string? EscalafonDesc { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es requerido")]
-        [StringLength(120)]
         public string? Nomenclatura { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es requerido")]
         public int? IdGrupoNivel { get; set; }
+
+        public bool EstaActivo { get; set; }
+
+        public string GrupoDesc { get; set; }
+
     }
 }

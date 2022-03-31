@@ -6,11 +6,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIARH.Aplication.DTOs
+namespace SIARH.Aplication.DTOs.RefEscalafon
 {
-    public class RefEscalafonUpdateDTO : RefEscalafonCreateDTO
+    public class RefEscalafonUpdateDTO : RefEscalafonDTO
     {
         public int IdEscalafon { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [StringLength(120)]
+        public string? EscalafonDesc { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [StringLength(120)]
+        public string? Nomenclatura { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        public int? IdGrupoNivel { get; set; }
+        public bool EstaActivo { get; set; }
 
     }
 }

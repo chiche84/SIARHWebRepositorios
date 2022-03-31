@@ -8,6 +8,7 @@ using AutoMapper;
 
 using SIARH.Aplication.DTOs;
 using SIARH.Aplication.DTOs.RefAmbito;
+using SIARH.Aplication.DTOs.RefEscalafon;
 using SIARH.Aplication.Models;
 using SIARH.Persistence.Models;
 
@@ -20,14 +21,19 @@ namespace SIARH.Aplication.Mapper
             CreateMap<RefAmbitoDTO, RefAmbito>().ReverseMap();
             CreateMap<RefAmbitoCreateDTO, RefAmbito>().ReverseMap();
             CreateMap<RefAmbitoUpdateDTO, RefAmbito>().ReverseMap();
-            CreateMap<RefAmbitoViewDTO, RefAmbito>().ReverseMap();
-            CreateMap<Result<RefAmbitoViewDTO>, Result<RefAmbitoDTO>>().ReverseMap();
+            CreateMap<RefAmbitoGetDTO, RefAmbito>().ReverseMap();
+            CreateMap<Result<RefAmbitoGetDTO>, Result<RefAmbitoDTO>>().ReverseMap();
 
             CreateMap<RefEscalafonDTO, RefEscalafon>().ReverseMap();
-            CreateMap<RefEscalafonCreateDTO, RefEscalafonDTO>().ReverseMap();
-            CreateMap<RefEscalafonUpdateDTO, RefEscalafonDTO>().ReverseMap();
+            CreateMap<RefEscalafonCreateDTO, RefEscalafon>().ReverseMap();
+            CreateMap<RefEscalafonUpdateDTO, RefEscalafon>().ReverseMap();
+
+            var mapRefEscalafonGetDTO = CreateMap<RefEscalafon, RefEscalafonGetDTO>();
+            mapRefEscalafonGetDTO.ForMember(dest => dest.GrupoDesc, opt => opt.MapFrom(src => src.IdGrupoNivelNavigation.GrupoDesc));
 
 
+            CreateMap<Result<RefEscalafonGetDTO>, Result<RefEscalafonDTO>>().ReverseMap();
+                
         }
     }
 }

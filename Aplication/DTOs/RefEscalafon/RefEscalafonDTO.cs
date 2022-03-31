@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIARH.Aplication.DTOs
+namespace SIARH.Aplication.DTOs.RefEscalafon
 {
-    public class RefEscalafonDTO : RefEscalafonUpdateDTO, IDTO
+    public class RefEscalafonDTO : IDTO
     {
-        public bool EstaActivo { get; set; }
+       
 
     }
 }

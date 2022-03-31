@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SIARH.Aplication.DTOs;
+using SIARH.Aplication.DTOs.RefEscalafon;
 using SIARH.Aplication.Interfaces;
 using SIARH.Aplication.Models;
 using SIARH.Persistence.Filters;
@@ -18,20 +19,20 @@ namespace SIARH.Aplication.Services
     {
         public override async Task<Result<RefEscalafonDTO>> CreatePreConditions(RefEscalafonDTO refEscalafon)
         {
-            RefEscalafonCreateDTO refEscalafonCreacion = mapper.Map<RefEscalafonCreateDTO>(refEscalafon);
+            RefEscalafonCreateDTO refEscalafonCreacion = (RefEscalafonCreateDTO)refEscalafon;
 
             List<string> errors = new List<string>();
 
             try
             {
                 //01
-                if (refEscalafon == null)
+                if (refEscalafonCreacion == null)
                 {
                     errors.Add("El Escalafon no posee Datos.");
                 }
 
                 //02
-                if (refEscalafon.IdGrupoNivel == null)
+                if (refEscalafonCreacion.IdGrupoNivel == null)
                 {
                     errors.Add("El Escalafon no posee Grupo Nivel Definido.");
                 }

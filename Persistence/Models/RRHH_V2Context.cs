@@ -103,7 +103,6 @@ namespace SIARH.Persistence.Models
         public virtual DbSet<Provincium> Provincia { get; set; } = null!;
         public virtual DbSet<RefAdicional> RefAdicionals { get; set; } = null!;
         public virtual DbSet<RefAfectacion> RefAfectacions { get; set; } = null!;
-        public virtual DbSet<RefAmbito> RefAmbitos { get; set; } = null!;
         public virtual DbSet<RefAplicacion> RefAplicacions { get; set; } = null!;
         public virtual DbSet<RefAsignatura> RefAsignaturas { get; set; } = null!;
         public virtual DbSet<RefCalendarioFeriado> RefCalendarioFeriados { get; set; } = null!;

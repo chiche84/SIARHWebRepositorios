@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 using SIARH.Aplication.DTOs;
+using SIARH.Aplication.DTOs.RefEscalafon;
 using SIARH.Aplication.Models;
 using SIARH.Aplication.Services;
 using SIARH.Persistence.Filters;
@@ -26,7 +27,9 @@ namespace SIARHWeb.Controllers
         [HttpGet("EscalafonGetAll")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await refEscalafonService.Get());
+            var response = refEscalafonService.Get();
+            var lista = mapper.Map<Result<RefEscalafonGetDTO>>(response);
+            return Ok(lista);
         }
 
         [HttpGet("FilterByName")]
@@ -46,9 +49,9 @@ namespace SIARHWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                RefEscalafonDTO refEscalafonDTO = mapper.Map<RefEscalafonDTO>(refEscalafonCreacionDTO);
+                //RefEscalafonDTO refEscalafonDTO = mapper.Map<RefEscalafonDTO>(refEscalafonCreacionDTO);
 
-                return Ok(await refEscalafonService.Create(refEscalafonDTO));
+                return Ok(await refEscalafonService.Create(refEscalafonCreacionDTO));
             }
 
             return BadRequest();
@@ -59,9 +62,9 @@ namespace SIARHWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                RefEscalafonDTO refEscalafonDTO = mapper.Map<RefEscalafonDTO>(refEscalafonUpdateDTO);
+                //RefEscalafonDTO refEscalafonDTO = mapper.Map<RefEscalafonDTO>(refEscalafonUpdateDTO);
 
-                return Ok(await refEscalafonService.Update(refEscalafonDTO));
+                return Ok(await refEscalafonService.Update(refEscalafonUpdateDTO));
             }
 
             return BadRequest();
@@ -72,9 +75,9 @@ namespace SIARHWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                RefEscalafonDTO refEscalafonDTO = mapper.Map<RefEscalafonDTO>(refEscalafonUpdateDTO);
+                //RefEscalafonDTO refEscalafonDTO = mapper.Map<RefEscalafonDTO>(refEscalafonUpdateDTO);
 
-                return Ok(await refEscalafonService.Delete(refEscalafonDTO));
+                return Ok(await refEscalafonService.Delete(refEscalafonUpdateDTO));
             }
             return BadRequest();
         }

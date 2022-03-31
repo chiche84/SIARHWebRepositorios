@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SIARH.Aplication.DTOs;
+using SIARH.Aplication.DTOs.RefEscalafon;
 using SIARH.Aplication.Interfaces;
 using SIARH.Aplication.Models;
 using SIARH.Persistence.Filters;
@@ -30,7 +31,6 @@ namespace SIARH.Aplication.Services
         {
             try
             {
-                entityIn.EstaActivo = true;
                 Result<RefEscalafonDTO> resultPre = CreatePreConditions(entityIn).Result;
 
                 if (resultPre.Succeeded)
@@ -43,7 +43,7 @@ namespace SIARH.Aplication.Services
                     {
                         await unitOfWork.CompleteAsync();
 
-                        RefEscalafonDTO entityOut = mapper.Map<RefEscalafonDTO>(refEscalafon);
+                        RefEscalafonUpdateDTO entityOut = mapper.Map<RefEscalafonUpdateDTO>(refEscalafon);
 
                         return  Result<RefEscalafonDTO>.Success(entityOut);
                     }
@@ -69,7 +69,6 @@ namespace SIARH.Aplication.Services
         {
             try
             {
-                entityIn.EstaActivo = true;
                 Result<RefEscalafonDTO> resultPre = UpdatePreConditions(entityIn).Result;
 
                 if (resultPre.Succeeded)
@@ -109,7 +108,6 @@ namespace SIARH.Aplication.Services
         {
             try
             {
-                entityIn.EstaActivo = true;
                 Result<RefEscalafonDTO> resultPre = DeletePreConditions(entityIn).Result;
 
                 if (resultPre.Succeeded)
