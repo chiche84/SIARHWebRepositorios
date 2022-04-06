@@ -9,8 +9,11 @@ using System.Threading.Tasks;
 
 namespace SIARH.Persistence.Filters
 {
-    public class RefAmbitoFilter : RefAmbito, IFilter
+    public class RefAmbitoFilter : GenericFilter
     {
-     
+        public int IdAmbito { get; set; }
+        public string AmbitoDesc { get; set; }
+        public bool? EstaActivo { get; set; }
+        public string AmbitoDescContains { get; set; }
     }
 }

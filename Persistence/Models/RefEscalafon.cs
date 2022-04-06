@@ -32,7 +32,7 @@ namespace SIARH.Persistence.Models
         public DateTime? FechaEliminacion { get; set; }
         public int? IdGrupoNivel { get; set; }
 
-        public virtual RefGrupoNivel? IdGrupoNivelNavigation { get; set; }
+        public virtual RefGrupoNivel IdGrupoNivelNavigation { get; set; }
         public virtual ICollection<Presupuesto> Presupuestos { get; set; }
     }
 }

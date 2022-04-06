@@ -20,32 +20,30 @@ namespace SIARH.Persistence
         {            
         }
 
-        public override async Task<IEnumerable<RefAmbito>> All()
+        public override async Task<bool> Create(RefAmbito entity)
         {
             try
             {
-                return await dbSet.ToListAsync();
+                entity.EstaActivo = true;
+                await dbSet.AddAsync(entity);
+                return true;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "{Repo} All function error", typeof(RefAmbitoRepository));
-                return new List<RefAmbito>();
+                _logger.LogError(ex, "{Repo} Upsert function error", typeof(RefAmbitoRepository));
+                return false;
             }
         }
 
-
-        public override async Task<bool> Upsert(RefAmbito entity)
+        public override async Task<bool> Update(RefAmbito entity)
         {
             try
             {
-                var existingUser = await dbSet.Where(x => x.IdAmbito == entity.IdAmbito)
-                                                    .FirstOrDefaultAsync();
+                var existingAmbito = await dbSet.Where(x => x.IdAmbito == entity.IdAmbito).FirstOrDefaultAsync();
 
-                if (existingUser == null)
-                    return await Add(entity);
+                if (existingAmbito == null) return false;
 
-                existingUser.AmbitoDesc = entity.AmbitoDesc;
-
+                existingAmbito.AmbitoDesc = entity.AmbitoDesc;
                 return true;
             }
             catch (Exception ex)
@@ -59,13 +57,11 @@ namespace SIARH.Persistence
         {
             try
             {
-                var RefAmbito = await dbSet.Where(x => x.IdAmbito == id)
-                                        .FirstOrDefaultAsync();
+                var existingAmbito = await dbSet.Where(x => x.IdAmbito == id).FirstOrDefaultAsync();
 
-                if (RefAmbito == null) return false;
+                if (existingAmbito == null) return false;
 
-                RefAmbito.EstaActivo = false;
-
+                existingAmbito.EstaActivo = false;
                 return true;
             }
             catch (Exception ex)
@@ -74,9 +70,8 @@ namespace SIARH.Persistence
                 return false;
             }
         }
-             
         
-        public async Task<IEnumerable<RefAmbito>> Filter(RefAmbitoFilter filter)
+        public override async Task<IEnumerable<RefAmbito>> Filter(RefAmbitoFilter filter)
         {
             var query = dbSet.AsQueryable();
 
@@ -84,6 +79,9 @@ namespace SIARH.Persistence
                 query = query.Where(x => x.IdAmbito == filter.IdAmbito);
 
             if (filter.AmbitoDesc != null)
+                query = query.Where(x => x.AmbitoDesc == filter.AmbitoDesc);
+
+            if (filter.AmbitoDescContains != null)
                 query = query.Where(x => x.AmbitoDesc.Contains(filter.AmbitoDesc));
 
             if (filter.EstaActivo != null)
@@ -92,7 +90,6 @@ namespace SIARH.Persistence
             return await query.ToListAsync();
         }
 
-       
     }
 }
 

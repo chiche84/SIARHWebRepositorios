@@ -8,8 +8,7 @@ using SIARH.Persistence.Models;
 
 namespace SIARH.Persistence
 {
-    public interface IRefEscalafonRepository : IGenericRepository<RefEscalafon, RefAmbitoFilter>
+    public interface IRefEscalafonRepository : IGenericRepository<RefEscalafon, RefEscalafonFilter>
     {
-        Task<IEnumerable<RefEscalafon>> GetByGrupoNivel(int idGrupoNivel);
     }
 }
