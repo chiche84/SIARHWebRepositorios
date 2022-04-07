@@ -15,7 +15,6 @@ namespace SIARH.Persistence.Models
             : base(options)
         {
         }
-
         public virtual DbSet<AplicacionUsuario> AplicacionUsuarios { get; set; } = null!;
         public virtual DbSet<Calendario> Calendarios { get; set; } = null!;
         public virtual DbSet<CargoFuncional> CargoFuncionals { get; set; } = null!;
@@ -249,14 +248,14 @@ namespace SIARH.Persistence.Models
         public virtual DbSet<VwCircuitoSolictudPlaza> VwCircuitoSolictudPlazas { get; set; } = null!;
         public virtual DbSet<_23MigracionSolicitudestado> _23MigracionSolicitudestados { get; set; } = null!;
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-5J76I7I;Initial Catalog=RRHH_V2;Integrated Security=True");
-            }
-        }
+//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//        {
+//            if (!optionsBuilder.IsConfigured)
+//            {
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//                optionsBuilder.UseSqlServer("Data Source=DESKTOP-5J76I7I;Initial Catalog=RRHH_V2;Integrated Security=True");
+//            }
+//        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

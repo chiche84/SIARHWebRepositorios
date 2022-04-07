@@ -10,6 +10,7 @@ using SIARH.Aplication;
 using SIARH.Aplication.Services;
 using SIARH.Persistence;
 using SIARH.Persistence.UnitOfWork;
+using MediatR;
 
 namespace WebAPIAutores1
 {
@@ -73,10 +74,16 @@ namespace WebAPIAutores1
                     builder.WithOrigins("https://apirequest.io").AllowAnyMethod().AllowAnyHeader();
                 });
             });
-                       
+            services.AddHttpContextAccessor();
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PipelineSaveChanges<,>));
+            services.AddMediatR(typeof(RefAmbitoEventHandler));
+            services.AddMediatR(typeof(GetRefAmbitoEventHandler));
+
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<RefAmbitoService>();
             services.AddTransient<RefEscalafonService>();
+
         }
 
 

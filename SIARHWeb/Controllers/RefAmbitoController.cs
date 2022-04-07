@@ -1,4 +1,7 @@
 using AutoMapper;
+
+using MediatR;
+
 using Microsoft.AspNetCore.Mvc;
 
 using SIARH.Aplication.DTOs;
@@ -7,7 +10,6 @@ using SIARH.Aplication.Models;
 using SIARH.Aplication.Services;
 using SIARH.Persistence.Filters;
 using SIARH.Persistence.Models;
-using System.Text.Json;
 
 namespace SIARHWeb.Controllers
 {
@@ -17,11 +19,13 @@ namespace SIARHWeb.Controllers
     {
         private readonly RefAmbitoService refAmbitoService;
         private readonly IMapper mapper;
+        private readonly IMediator mediator;
 
-        public RefAmbitoController(RefAmbitoService refAmbitoService, IMapper mapper)
+        public RefAmbitoController(RefAmbitoService refAmbitoService, IMapper mapper, IMediator mediator)
         {
             this.refAmbitoService = refAmbitoService;
             this.mapper = mapper;
+            this.mediator = mediator;
         }
 
         [HttpGet("ambitoGetAll")]
@@ -60,13 +64,28 @@ namespace SIARHWeb.Controllers
             return BadRequest();
         }
 
+        [HttpGet("getmediator")]
+        public async Task<IActionResult> GetAmbitosMediator()
+        {
+            var response = await mediator.Send(new RefAmbitoRequestModel());
+            var lista = mapper.Map<Result<RefAmbitoGetDTO>>(response);
+            return Ok(lista);
+        }
+
+        [HttpPost("mediator")]
+        public async Task<IActionResult> CreateRefAmbitoMediator(RefAmbitoCreateCommand refAmbitoCreateCommand)
+        {        
+            var response = await mediator.Send(refAmbitoCreateCommand);
+            return Ok(response);
+        }
+
         [HttpPut]
         public async Task<IActionResult> UpdateRefAmbito(RefAmbitoUpdateDTO refAmbitoUpdateDTO)
         {
             if (ModelState.IsValid)
             {
                 //RefAmbitoDTO refAmbitoDTO = mapper.Map<RefAmbitoDTO>(refAmbitoUpdateDTO);
-
+                
                 return Ok(await refAmbitoService.Update(refAmbitoUpdateDTO));
             }
             return BadRequest();

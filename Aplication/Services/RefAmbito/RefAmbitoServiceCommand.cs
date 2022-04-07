@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
+
 using SIARH.Aplication.DTOs;
 using SIARH.Aplication.DTOs.RefAmbito;
 using SIARH.Aplication.Interfaces;
@@ -19,12 +21,13 @@ namespace SIARH.Aplication.Services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
+        private readonly ILogger<RefAmbitoService> logger;
 
-        public RefAmbitoService(IUnitOfWork unitOfWork, IMapper mapper)
+        public RefAmbitoService(IUnitOfWork unitOfWork, IMapper mapper, ILogger<RefAmbitoService> logger)
         {
             this.unitOfWork = unitOfWork;
-            this.mapper = mapper;        
-
+            this.mapper = mapper;
+            this.logger = logger;
         }
 
         public async Task<Result<RefAmbitoDTO>> Create(RefAmbitoDTO entityIn)
@@ -36,12 +39,14 @@ namespace SIARH.Aplication.Services
                 if (resultPre.Succeeded)
                 {
                     RefAmbito refAmbito = mapper.Map<RefAmbito>(entityIn);
+
+                    logger.LogInformation("Guardando Ref Ambito");
+
                     await unitOfWork.RefAmbitoRepository.Create(refAmbito);
 
                     Result<RefAmbitoDTO> resultPost = CreatePostConditions(entityIn).Result;
                     if (resultPost.Succeeded)
                     {
-                        await unitOfWork.CompleteAsync();
 
                         RefAmbitoUpdateDTO entityOut = mapper.Map<RefAmbitoUpdateDTO>(refAmbito);
 
