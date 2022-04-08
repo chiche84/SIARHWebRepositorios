@@ -32,7 +32,6 @@ namespace SIARH.Aplication.Services
 
     
     public class RefAmbitoRequestModel: IRequest<Result<RefAmbitoDTO>> {}
-
     public class GetRefAmbitoEventHandler : IRequestHandler<RefAmbitoRequestModel, Result<RefAmbitoDTO>>
     {
         private readonly RefAmbitoService refAmbitoService;

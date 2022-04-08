@@ -1,4 +1,5 @@
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 using SIARH.Aplication.DTOs;
@@ -15,71 +16,74 @@ namespace SIARHWeb.Controllers
     [Route("[controller]")]
     public class RefEscalafonController : ControllerBase
     {
-        private readonly RefEscalafonService refEscalafonService;
         private readonly IMapper mapper;
+        private readonly IMediator mediator;
 
-        public RefEscalafonController(RefEscalafonService refEscalafonService, IMapper mapper)
+
+        public RefEscalafonController(IMapper mapper, IMediator mediator)
         {
-            this.refEscalafonService = refEscalafonService;
             this.mapper = mapper;
+            this.mediator = mediator;   
         }
 
         [HttpGet("EscalafonGetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var response = refEscalafonService.Get();
+            var response = await mediator.Send(new RefEscalafonGet());
             var lista = mapper.Map<Result<RefEscalafonGetDTO>>(response);
             return Ok(lista);
         }
 
         [HttpGet("FilterByName")]
-        public async Task<IActionResult> GetFilterByName(string name)
+        public async Task<IActionResult> GetFilterByName(string escalafondesc )
         {
-            return Ok(await refEscalafonService.GetByEscalafonDesc(name));
+            var response = await mediator.Send(new RefEscalafonGetByEscalafonDesc(){ EscalafonDesc = escalafondesc });
+            var lista = mapper.Map<Result<RefEscalafonGetDTO>>(response);
+            return Ok(lista);
         }
 
         [HttpGet("{id:int}", Name = "GetByIdEscalafon")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await refEscalafonService.GetById(id));
+            var response = await mediator.Send(new RefEscalafonGetById() { IdEscalafon = id });
+            var lista = mapper.Map<Result<RefEscalafonGetDTO>>(response);
+            return Ok(lista);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRefEscalafon(RefEscalafonCreateDTO refEscalafonCreacionDTO)
+        public async Task<IActionResult> CreateRefEscalafon(RefEscalafonCreateCommand refEscalafonCreateCommand)
         {
-            if (ModelState.IsValid)
+            var response = await mediator.Send(refEscalafonCreateCommand);
+
+            if (response.Succeeded)
             {
-                //RefEscalafonDTO refEscalafonDTO = mapper.Map<RefEscalafonDTO>(refEscalafonCreacionDTO);
-
-                return Ok(await refEscalafonService.Create(refEscalafonCreacionDTO));
+                return Ok(response);
             }
-
-            return BadRequest();
+            return BadRequest(response);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateRefEscalafon(RefEscalafonUpdateDTO refEscalafonUpdateDTO)
+        public async Task<IActionResult> UpdateRefEscalafon(RefEscalafonUpdateCommand refEscalafonUpdateCommand)
         {
-            if (ModelState.IsValid)
+            var response = await mediator.Send(refEscalafonUpdateCommand);
+
+            if (response.Succeeded)
             {
-                //RefEscalafonDTO refEscalafonDTO = mapper.Map<RefEscalafonDTO>(refEscalafonUpdateDTO);
-
-                return Ok(await refEscalafonService.Update(refEscalafonUpdateDTO));
+                return Ok(response);
             }
-
-            return BadRequest();
+            return BadRequest(response);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteRefEscalafon(RefEscalafonUpdateDTO refEscalafonUpdateDTO)
+        public async Task<IActionResult> DeleteRefEscalafon(RefEscalafonDeleteCommand refEscalafonDeleteCommand)
         {
-            if (ModelState.IsValid)
-            {
-                //RefEscalafonDTO refEscalafonDTO = mapper.Map<RefEscalafonDTO>(refEscalafonUpdateDTO);
+            var response = await mediator.Send(refEscalafonDeleteCommand);
 
-                return Ok(await refEscalafonService.Delete(refEscalafonUpdateDTO));
+            if (response.Succeeded)
+            {
+                return Ok(response);
             }
-            return BadRequest();
+            return BadRequest(response);
         }
 
     }

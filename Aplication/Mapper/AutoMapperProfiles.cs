@@ -27,6 +27,7 @@ namespace SIARH.Aplication.Mapper
             CreateMap<RefEscalafonDTO, RefEscalafon>().ReverseMap();
             CreateMap<RefEscalafonCreateDTO, RefEscalafon>().ReverseMap();
             CreateMap<RefEscalafonUpdateDTO, RefEscalafon>().ReverseMap();
+            CreateMap<RefEscalafonDeleteDTO, RefEscalafon>().ReverseMap();
 
             var mapRefEscalafonGetDTO = CreateMap<RefEscalafon, RefEscalafonGetDTO>();
             mapRefEscalafonGetDTO.ForMember(dest => dest.GrupoDesc, opt => opt.MapFrom(src => src.IdGrupoNivelNavigation.GrupoDesc));
