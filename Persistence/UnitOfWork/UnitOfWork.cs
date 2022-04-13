@@ -16,9 +16,13 @@ namespace SIARH.Persistence.UnitOfWork
 
         private RefAmbitoRepository? _refAmbitoRepository;
         private RefEscalafonRepository? _refEscalafonRepository;
+        private RefGrupoNivelRepository? _refGrupoNivelRepository;
         public IRefAmbitoRepository RefAmbitoRepository => _refAmbitoRepository = _refAmbitoRepository ?? new RefAmbitoRepository(_context, _logger);
         public IRefEscalafonRepository RefEscalafonRepository => _refEscalafonRepository = _refEscalafonRepository ?? new RefEscalafonRepository(_context, _logger);
+        public IRefGrupoNivelRepository RefGrupoNivelRepository => _refGrupoNivelRepository = _refGrupoNivelRepository ?? new RefGrupoNivelRepository(_context, _logger);
+
         public UnitOfWork(RRHH_V2Context context, ILoggerFactory loggerFactory)
+
         {
             _context = context;
             _logger = loggerFactory.CreateLogger("logs");         

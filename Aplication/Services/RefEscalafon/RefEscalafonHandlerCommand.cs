@@ -28,7 +28,7 @@ namespace SIARH.Aplication.Services
     }
 
     //Handler
-    public class RefEscalafonEventHandler : IRequestHandler<RefEscalafonCreateCommand, Result<RefEscalafonDTO>>,
+    public partial class RefEscalafonEventHandler : IRequestHandler<RefEscalafonCreateCommand, Result<RefEscalafonDTO>>,
                                             IRequestHandler<RefEscalafonUpdateCommand, Result<RefEscalafonDTO>>,
                                             IRequestHandler<RefEscalafonDeleteCommand, Result<RefEscalafonDTO>>
     {

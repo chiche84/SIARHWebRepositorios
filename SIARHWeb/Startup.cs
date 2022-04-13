@@ -83,6 +83,7 @@ namespace WebAPIAutores1
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<RefAmbitoService>();
             services.AddTransient<RefEscalafonService>();
+            services.AddTransient<RefGrupoNivelService>();
 
         }
 

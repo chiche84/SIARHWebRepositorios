@@ -45,10 +45,17 @@ namespace SIARH.Aplication.Services
                 }
 
                 //04
-                refEscalafonDTOs = await GetByEscalafonNomenclatura (refEscalafonCreacion.Nomenclatura);
+                refEscalafonDTOs = await GetByEscalafonNomenclatura(refEscalafonCreacion.Nomenclatura);
                 if (refEscalafonDTOs.Entities.Count > 0)
                 {
                     errors.Add($"Un Escalafon con la nomenclatura {refEscalafonCreacion.Nomenclatura} ya Existe.");
+                }
+
+                var existGrupo = mediator.Send(new RefEscalafonGetById() { IdEscalafon = (int)refEscalafonCreacion.IdGrupoNivel } );
+                //02
+                if (!existGrupo.Result.Succeeded)
+                {
+                    errors.Add("El Grupo Nivel no Existe.");
                 }
             }
             catch (Exception)

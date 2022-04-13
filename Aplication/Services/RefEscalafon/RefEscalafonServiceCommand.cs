@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MediatR;
 using SIARH.Aplication.DTOs;
 using SIARH.Aplication.DTOs.RefEscalafon;
 using SIARH.Aplication.Interfaces;
@@ -15,16 +16,17 @@ using System.Threading.Tasks;
 
 namespace SIARH.Aplication.Services
 {
-    public partial class RefEscalafonService : GenericService<RefEscalafonDTO, RefEscalafonFilter>, IService<RefEscalafonDTO, RefEscalafonFilter>
+    public partial class RefEscalafonService : GenericService<RefEscalafonDTO,  RefEscalafonFilter>, IService<RefEscalafonDTO, RefEscalafonFilter>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
+        private readonly IMediator mediator;
 
-        public RefEscalafonService(IUnitOfWork unitOfWork, IMapper mapper)
+        public RefEscalafonService(IUnitOfWork unitOfWork, IMapper mapper, IMediator mediator)
         {
             this.unitOfWork = unitOfWork;
-            this.mapper = mapper;        
-
+            this.mapper = mapper;
+            this.mediator = mediator;
         }
 
         public async Task<Result<RefEscalafonDTO>> Create(RefEscalafonDTO entityIn)

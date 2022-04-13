@@ -16,16 +16,10 @@ namespace SIARH.Aplication.Services
     public class RefEscalafonGet : IRequest<Result<RefEscalafonDTO>> { }
     public class RefEscalafonGetById : RefEscalafonDeleteDTO, IRequest<Result<RefEscalafonDTO>> { }
     public class RefEscalafonGetByEscalafonDesc : RefEscalafonGetByEscalafonDescDTO, IRequest<Result<RefEscalafonDTO>> {}
-    public class RefEscalafonHandlerQuery : IRequestHandler<RefEscalafonGet, Result<RefEscalafonDTO>>,
+    public partial class RefEscalafonEventHandler : IRequestHandler<RefEscalafonGet, Result<RefEscalafonDTO>>,
                                             IRequestHandler<RefEscalafonGetById, Result<RefEscalafonDTO>>,
                                             IRequestHandler<RefEscalafonGetByEscalafonDesc, Result<RefEscalafonDTO>>
     {
-        private readonly RefEscalafonService RefEscalafonService;
-
-        public RefEscalafonHandlerQuery(RefEscalafonService RefEscalafonService)
-        {
-            this.RefEscalafonService = RefEscalafonService;
-        }
 
         public async Task<Result<RefEscalafonDTO>> Handle(RefEscalafonGet request, CancellationToken cancellationToken)
         {
