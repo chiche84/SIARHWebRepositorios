@@ -21,8 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Aplication\SIARH.Aplication.csproj" />
-    <ProjectReference Include="..\Persistence\SIARH.Persistence.csproj" />
     <ProjectReference Include="..\Security\Security.csproj" />
   </ItemGroup>
 

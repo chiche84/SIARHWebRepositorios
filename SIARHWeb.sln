@@ -3,29 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIARHWebAPI", "SIARHWeb\SIARHWebAPI.csproj", "{95DA7D63-A60B-4971-9C11-F2FD40B1B7A0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIARH.Aplication", "Aplication\SIARH.Aplication.csproj", "{14AD340B-1BC6-4C56-9A59-230059024045}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIARH.Domain", "Domain\SIARH.Domain.csproj", "{DDD85AAE-6FF1-4815-8F7A-B67586244F72}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIARH.Persistence", "Persistence\SIARH.Persistence.csproj", "{50CA2406-803C-4475-93E7-55C50DE618A9}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security", "Security\Security.csproj", "{1206E87F-E7AC-45F3-BE93-641E6D4A7F38}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIARH.POF", "SIARH.POF\SIARH.POF.csproj", "{6CF9BF09-6A72-4B20-838B-6A842168B2C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Me.Siarh.Common.Persistence", "Me.Siarh.Common.Persistence\Me.Siarh.Common.Persistence.csproj", "{D488BD59-EA53-405D-8374-AAA2E5BB1459}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Me.Siarh.Common.Persistence", "Me.Siarh.Common.Persistence\Me.Siarh.Common.Persistence.csproj", "{D488BD59-EA53-405D-8374-AAA2E5BB1459}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Me.Siarh.Common.Application", "Me.Siarh.Common.Application\Me.Siarh.Common.Application.csproj", "{6C5FE325-2F45-46D9-A873-FA8F1FD8C0AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Me.Siarh.Common.Application", "Me.Siarh.Common.Application\Me.Siarh.Common.Application.csproj", "{6C5FE325-2F45-46D9-A873-FA8F1FD8C0AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Me.Siarh.Pof.Domain", "Me.Siarh.Pof.Domain\Me.Siarh.Pof.Domain.csproj", "{3771E329-255B-422F-A8D9-0A17CCF7BFE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Me.Siarh.Pof.Domain", "Me.Siarh.Pof.Domain\Me.Siarh.Pof.Domain.csproj", "{3771E329-255B-422F-A8D9-0A17CCF7BFE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Me.Siarh.Pof.Persistence", "Me.Siarh.Pof.Persistence\Me.Siarh.Pof.Persistence.csproj", "{2A407D69-9CEF-47E7-8574-7DF523069B30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Me.Siarh.Pof.Persistence", "Me.Siarh.Pof.Persistence\Me.Siarh.Pof.Persistence.csproj", "{2A407D69-9CEF-47E7-8574-7DF523069B30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Me.Siarh.Pof.Application", "Me.Siarh.Pof.Application\Me.Siarh.Pof.Application.csproj", "{76FF004F-2BC5-4ABB-AA2A-D73B40C3A866}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Me.Siarh.Pof.Application", "Me.Siarh.Pof.Application\Me.Siarh.Pof.Application.csproj", "{76FF004F-2BC5-4ABB-AA2A-D73B40C3A866}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Me.Siarh.Pof.Api", "Me.Siarh.Pof.Api\Me.Siarh.Pof.Api.csproj", "{681EA804-2AF4-42D7-9027-BDF6B205255A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Me.Siarh.Pof.Api", "Me.Siarh.Pof.Api\Me.Siarh.Pof.Api.csproj", "{681EA804-2AF4-42D7-9027-BDF6B205255A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,30 +23,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{95DA7D63-A60B-4971-9C11-F2FD40B1B7A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95DA7D63-A60B-4971-9C11-F2FD40B1B7A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95DA7D63-A60B-4971-9C11-F2FD40B1B7A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95DA7D63-A60B-4971-9C11-F2FD40B1B7A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14AD340B-1BC6-4C56-9A59-230059024045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14AD340B-1BC6-4C56-9A59-230059024045}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14AD340B-1BC6-4C56-9A59-230059024045}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14AD340B-1BC6-4C56-9A59-230059024045}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDD85AAE-6FF1-4815-8F7A-B67586244F72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDD85AAE-6FF1-4815-8F7A-B67586244F72}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDD85AAE-6FF1-4815-8F7A-B67586244F72}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDD85AAE-6FF1-4815-8F7A-B67586244F72}.Release|Any CPU.Build.0 = Release|Any CPU
-		{50CA2406-803C-4475-93E7-55C50DE618A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50CA2406-803C-4475-93E7-55C50DE618A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50CA2406-803C-4475-93E7-55C50DE618A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50CA2406-803C-4475-93E7-55C50DE618A9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1206E87F-E7AC-45F3-BE93-641E6D4A7F38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1206E87F-E7AC-45F3-BE93-641E6D4A7F38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1206E87F-E7AC-45F3-BE93-641E6D4A7F38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1206E87F-E7AC-45F3-BE93-641E6D4A7F38}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6CF9BF09-6A72-4B20-838B-6A842168B2C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6CF9BF09-6A72-4B20-838B-6A842168B2C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6CF9BF09-6A72-4B20-838B-6A842168B2C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6CF9BF09-6A72-4B20-838B-6A842168B2C8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D488BD59-EA53-405D-8374-AAA2E5BB1459}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D488BD59-EA53-405D-8374-AAA2E5BB1459}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D488BD59-EA53-405D-8374-AAA2E5BB1459}.Release|Any CPU.ActiveCfg = Release|Any CPU
