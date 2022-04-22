@@ -12,5 +12,6 @@ namespace Me.Siarh.Pof.Persistence.Filters
     {
         public string FuncionDesc { get; set; }
         public string FuncionDescContains { get; set; }
+
     }
 }

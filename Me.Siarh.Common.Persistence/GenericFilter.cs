@@ -12,12 +12,19 @@ namespace Me.Siarh.Common.Persistence
         public virtual List<int> ExcludeIds { get; set; }
 
         public int Id { get; set; }
-        public bool EstaActivo { get; set; }
+        public bool? EstaActivo { get; set; }
+
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; } 
+
 
         public GenericFilter()
         {
             IncludeIds = new List<int>();
             ExcludeIds = new List<int>();
+
+            PageNumber = 1;
+            PageSize = 10;
         }
     }
 }

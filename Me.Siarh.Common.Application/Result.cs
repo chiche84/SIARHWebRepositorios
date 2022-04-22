@@ -23,9 +23,10 @@ namespace Me.Siarh.Common.Application
             Errors = errors.ToArray();
         }
 
-        internal Result(IList<T> entities, bool succeeded, IEnumerable<string> errors)
+        internal Result(IList<T> entities, Paged paged, bool succeeded, IEnumerable<string> errors)
         {
             Entities = entities;
+            Paged = paged;
             Succeeded = succeeded;
             Errors = errors.ToArray();
         }
@@ -37,29 +38,41 @@ namespace Me.Siarh.Common.Application
 
         public string[] Errors { get; set; }
 
-        //Meth
-        public static Result<T> Success(T entity)
+        public Paged Paged{ get; set; }
+
+    //Meth
+    public static Result<T> Success(T entity)
         {
             List<T> entities = new List<T>();
+            Paged paged = new Paged();
             entities.Add(entity);
-            return new Result<T>(entities, true, Array.Empty<string>());
+
+            return new Result<T>(entities, paged,  true, Array.Empty<string>());
         }
 
         public static Result<T> Success(IList<T> entities)
         {
-            return new Result<T>(entities, true, Array.Empty<string>());
+            Paged paged = new Paged();
+            return new Result<T>(entities, paged, true, Array.Empty<string>());
+        }
+
+        public static Result<T> Success(IList<T> entities, Paged paged)
+        {
+            return new Result<T>(entities, paged, true, Array.Empty<string>());
         }
 
         public static Result<T> Failure(T entity, IEnumerable<string> errors)
         {
             List<T> entities = new List<T>();
+            Paged paged = new Paged();
             entities.Add(entity);
-            return new Result<T>(entities, false, errors);
+            return new Result<T>(entities, paged, false, errors);
         }
 
         public static Result<T> Failure(IList<T> entities, IEnumerable<string> errors)
         {
-            return new Result<T>(entities, false, errors);
+            Paged paged = new Paged();
+            return new Result<T>(entities, paged, false, errors);
         }
     }
 

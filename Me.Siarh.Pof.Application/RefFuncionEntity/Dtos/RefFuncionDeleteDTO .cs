@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace Me.Siarh.Pof.Application.RefFuncionEntity.Dtos
 {
-    public class RefFuncionDeleteDTO : RefFuncionDTO
+    public class RefFuncionDeleteDTO : RefFuncionGetByIdDTO
     {
-
-        [Required(ErrorMessage = "El campo {0} es requerido")]
-        public int IdFuncion { get; set; }
 
     }
 }

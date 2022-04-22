@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Me.Siarh.Common.Application
 {
-    public abstract class GenericService<T, U> : IGenericService<T, U>  where T : IDTO where U : GenericFilter, new()
+    public abstract class GenericService<T, U> : IGenericService<T, U>  where T : IDTO where U : IFilterDTO, new()
     {
         //command
         public abstract Task<Result<T>> Create(T entity);
@@ -17,8 +17,8 @@ namespace Me.Siarh.Common.Application
         public abstract Task<Result<T>> Delete(T entity);
 
         //query
-        public abstract Task<Result<T>> Get();
         public abstract Task<Result<T>> GetById(int id);
+        public abstract Task<Result<T>> GetByFilter(U filter);
 
         //validation
         public virtual async Task<Result<T>> CreatePostConditions(T entity)
@@ -58,24 +58,9 @@ namespace Me.Siarh.Common.Application
             return Result<T>.Success(entities);
         }
 
-      
-       
 
-        //utils
-        //public bool IntegrityCheck(T entity, string key, int value)
-        //{
-        //    try
-        //    {
-        //        ObjectParameter errorRetornado = new ObjectParameter("error", typeof(String));
-        //        msp.spCheckDELETE(entity.GetType().Name, pObject.idCalendario, errorRetornado);
-        //        this.error = errorRetornado.Value.ToString();
-        //        return (error == "True") ? false : true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        this.error = "Error" + ex.Message;
-        //        return false;
-        //    }
-        //}
+
+
+       
     }
 }

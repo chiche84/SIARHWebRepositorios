@@ -14,7 +14,7 @@ using Me.Siarh.Pof.Domain.Entities;
 
 namespace Me.Siarh.Pof.Application.RefFuncionEntity.Services
 {
-    public partial class RefFuncionService : GenericService<RefFuncionDTO, RefFuncionFilter>
+    public partial class RefFuncionService : GenericService<RefFuncionDTO, RefFuncionGetByFilterDTO>
     {
         private readonly UnitOfWork unitOfWork;
         private readonly IMapper mapper;

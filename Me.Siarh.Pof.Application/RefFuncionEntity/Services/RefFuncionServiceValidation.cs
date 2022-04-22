@@ -27,7 +27,7 @@ namespace Me.Siarh.Pof.Application.RefFuncionEntity.Services
                 }
 
                 //03
-                var RefFuncionDtos = await GetByEscalafonDesc(RefFuncionCreacion.FuncionDesc);
+                var RefFuncionDtos = await GetByFilter(new RefFuncionGetByFilterDTO() {FuncionDescContains = RefFuncionCreacion.FuncionDesc });
                 if (RefFuncionDtos.Entities.Count > 0)
                 {
                     errors.Add($"Un Escalafon con el nombre {RefFuncionCreacion.FuncionDesc} ya Existe.");

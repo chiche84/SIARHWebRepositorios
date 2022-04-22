@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Me.Siarh.Common.Application
 {
-    internal interface IGenericService<T, U> where T : IDTO where U : GenericFilter
+    internal interface IGenericService<T, U> where T : IDTO where U : IFilterDTO
     {
         //command
         Task<Result<T>> Create(T entity);
@@ -15,7 +15,7 @@ namespace Me.Siarh.Common.Application
         Task<Result<T>> Delete(T entity);
         
         //query
-        Task<Result<T>> Get();
         Task<Result<T>> GetById(int id);
+        Task<Result<T>> GetByFilter(U filter);
     }
 }

@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Me.Siarh.Pof.Domain\Me.Siarh.Pof.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Others\" />
+  </ItemGroup>
+
 </Project>

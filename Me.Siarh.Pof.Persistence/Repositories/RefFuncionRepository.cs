@@ -17,9 +17,9 @@ namespace Me.Siarh.Pof.Persistence
 {
     public class RefFuncionRepository : GenericRepository<RefFuncion, RefFuncionFilter>, IRefFuncionRepository
     {
-        
-        public RefFuncionRepository(PofDbContext context, ILogger logger) : base(context, logger )
-        {            
+
+        public RefFuncionRepository(PofDbContext context, ILogger logger) : base(context, logger)
+        {
         }
 
         public override async Task<bool> Create(RefFuncion entity)
@@ -72,8 +72,8 @@ namespace Me.Siarh.Pof.Persistence
                 return false;
             }
         }
-        
-        public override async Task<IEnumerable<RefFuncion>> Filter(RefFuncionFilter filter)
+
+        public override IQueryable<RefFuncion> Filter(RefFuncionFilter filter)
         {
             var query = dbSet.AsQueryable();
 
@@ -84,12 +84,19 @@ namespace Me.Siarh.Pof.Persistence
                 query = query.Where(x => x.FuncionDesc == filter.FuncionDesc);
 
             if (filter.FuncionDescContains != null)
-                query = query.Where(x => x.FuncionDesc.Contains(filter.FuncionDesc));
+                query = query.Where(x => x.FuncionDesc.Contains(filter.FuncionDescContains));
 
             if (filter.EstaActivo != null)
                 query = query.Where(x => x.EstaActivo == filter.EstaActivo);
 
-            return await query.ToListAsync();
+            if (filter.ExcludeIds.Any())
+                query = query.Where(x => !filter.ExcludeIds.Contains(x.IdFuncion));
+
+            if (filter.IncludeIds.Any())
+                query = query.Where(x => filter.IncludeIds.Contains(x.IdFuncion));
+
+            return query;
+
         }
 
     }

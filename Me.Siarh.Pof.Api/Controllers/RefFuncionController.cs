@@ -22,18 +22,11 @@ namespace Me.Siarh.Pof.Api.Controllers
             this.mediator = mediator;   
         }
 
-        [HttpGet("FuncionGetAll")]
-        public async Task<IActionResult> GetAll()
-        {
-            var response = await mediator.Send(new RefFuncionGet());
-            var lista = mapper.Map<Result<RefFuncionGetDTO>>(response);
-            return Ok(lista);
-        }
 
-        [HttpGet("FilterByName")]
-        public async Task<IActionResult> GetFilterByName(string funciondesc )
+        [HttpGet("Filter")]
+        public async Task<IActionResult> GetByFilter([FromQuery] RefFuncionGetByFilter refFuncionGetByFilter)
         {
-            var response = await mediator.Send(new RefFuncionGetByFuncionDesc(){ FuncionDesc = funciondesc });
+            var response = await mediator.Send(refFuncionGetByFilter);
             var lista = mapper.Map<Result<RefFuncionGetDTO>>(response);
             return Ok(lista);
         }

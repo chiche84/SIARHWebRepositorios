@@ -15,55 +15,37 @@ namespace Me.Siarh.Pof.Application.RefFuncionEntity.Services
     public partial class RefFuncionService 
     {
 
-        protected async Task<List<RefFuncionGetDTO>> Filter(RefFuncionFilter filter)
-        {
-            IEnumerable<RefFuncion> entitiesIn = await unitOfWork.RefFuncionRepository.Filter(filter);
-
-            List<RefFuncionGetDTO> entitiesOut = mapper.Map<List<RefFuncionGetDTO>>(entitiesIn);
-
-            return entitiesOut;
-        }
-
         public override async Task<Result<RefFuncionDTO>> GetById(int id)
         {
+
             List<RefFuncionDTO> entitiesOut = new List<RefFuncionDTO>();
 
-            entitiesOut.AddRange(await Filter(new RefFuncionFilter() { Id = id, EstaActivo = true }));
+            IEnumerable<RefFuncion> entitiesIn = await unitOfWork.RefFuncionRepository.FilterPaginated(new RefFuncionFilter() { Id = id, EstaActivo = true});
 
+            entitiesOut.AddRange(mapper.Map<List<RefFuncionGetDTO>>(entitiesIn));
+     
             if (entitiesOut.Count != 1)
             {
                 return Result<RefFuncionDTO>.Failure(entitiesOut, new string[] { "No se encuentra Escalafon." });
             }
 
-            return Result<RefFuncionDTO>.Success(entitiesOut);
+            return Result<RefFuncionDTO>.Success(entitiesOut.Single());
         }
 
-        public async Task<Result<RefFuncionDTO>> GetByEscalafonDesc(string funcionDesc)
+        public override async Task<Result<RefFuncionDTO>> GetByFilter(RefFuncionGetByFilterDTO refFuncionGetByFilterDTO)
         {
             List<RefFuncionDTO> entitiesOut = new List<RefFuncionDTO>();
 
-            entitiesOut.AddRange(await Filter(new RefFuncionFilter() { FuncionDesc = funcionDesc, EstaActivo = true }));
+            IEnumerable<RefFuncion> entitiesIn = await unitOfWork.RefFuncionRepository.FilterPaginated(mapper.Map<RefFuncionFilter>(refFuncionGetByFilterDTO));
 
-            if (entitiesOut.Count == 0)
-            {
-                return Result<RefFuncionDTO>.Failure(entitiesOut, new string[] { "No se encuentra Escalafon." });
-            }
-
-            return Result<RefFuncionDTO>.Success(entitiesOut);
-        }
-
-        public override async Task<Result<RefFuncionDTO>> Get()
-        {
-            List<RefFuncionDTO> entitiesOut = new List<RefFuncionDTO>();
-
-            entitiesOut.AddRange(await Filter(new RefFuncionFilter() { EstaActivo = true }));
+            entitiesOut.AddRange(mapper.Map<List<RefFuncionGetDTO>>(entitiesIn));
 
             if (entitiesOut.Count == 0)
             {
                 return Result<RefFuncionDTO>.Failure(entitiesOut, new string[] { "No se encuentran Funciones." });
             }
 
-            return Result<RefFuncionDTO>.Success(entitiesOut);
+            return Result<RefFuncionDTO>.Success(entitiesOut, new Paged() {PageCount = unitOfWork.RefFuncionRepository.TotalItems(), PageNumber = refFuncionGetByFilterDTO.PageNumber, PageSize = refFuncionGetByFilterDTO.PageSize });
         }
     }
 }

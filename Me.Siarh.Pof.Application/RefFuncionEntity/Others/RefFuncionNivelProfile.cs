@@ -2,6 +2,7 @@
 using Me.Siarh.Common.Application;
 using Me.Siarh.Pof.Application.RefFuncionEntity.Dtos;
 using Me.Siarh.Pof.Domain.Entities;
+using Me.Siarh.Pof.Persistence.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace Me.Siarh.Pof.Application
             CreateMap<RefFuncionDeleteDTO, RefFuncion>().ReverseMap();
             CreateMap<RefFuncionGetDTO, RefFuncion>().ReverseMap();
             CreateMap<Result<RefFuncionGetDTO>, Result<RefFuncionDTO>>().ReverseMap();
+            CreateMap<RefFuncionGetByFilterDTO, RefFuncionFilter>().ReverseMap();
         }
     }
 }
