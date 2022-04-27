@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Me.Siarh.Pof.Domain\Me.Siarh.Pof.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

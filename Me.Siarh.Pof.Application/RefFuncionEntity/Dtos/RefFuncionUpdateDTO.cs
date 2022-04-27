@@ -9,7 +9,7 @@ namespace Me.Siarh.Pof.Application.RefFuncionEntity.Dtos
 {
     public class RefFuncionUpdateDTO : RefFuncionDTO
     {
-        public int IdFuncion { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(120)]

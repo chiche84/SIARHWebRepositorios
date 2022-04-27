@@ -18,7 +18,7 @@ namespace Me.Siarh.Pof.Application.RefFuncionEntity.Handlers
 
         public async Task<Result<RefFuncionDTO>> Handle(RefFuncionGetById request, CancellationToken cancellationToken)
         {
-            return await _refFuncionService.GetById(request.IdFuncion);
+            return await _refFuncionService.GetById(request.Id);
         }
 
         public async Task<Result<RefFuncionDTO>> Handle(RefFuncionGetByFilter request, CancellationToken cancellationToken)

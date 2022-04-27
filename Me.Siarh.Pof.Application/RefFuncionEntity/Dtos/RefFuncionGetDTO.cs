@@ -9,7 +9,7 @@ namespace Me.Siarh.Pof.Application.RefFuncionEntity.Dtos
 {
     public class RefFuncionGetDTO : RefFuncionDTO
     {
-        public int IdFuncion { get; set; }
+        public int Id { get; set; }
 
         public string? FuncionDesc { get; set; }
 

@@ -11,7 +11,7 @@ namespace Me.Siarh.Pof.Application.RefFuncionEntity.Dtos
     {
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
-        public int IdFuncion { get; set; }
+        public int Id { get; set; }
 
     }
 }

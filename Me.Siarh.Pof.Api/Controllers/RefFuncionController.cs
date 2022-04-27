@@ -34,7 +34,7 @@ namespace Me.Siarh.Pof.Api.Controllers
         [HttpGet("{id:int}", Name = "GetById")]
         public async Task<IActionResult> GetById(int id)
         {
-            var response = await mediator.Send(new RefFuncionGetById() { IdFuncion = id });
+            var response = await mediator.Send(new RefFuncionGetById() { Id = id });
             var lista = mapper.Map<Result<RefFuncionGetDTO>>(response);
             return Ok(lista);
         }

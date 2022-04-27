@@ -11,7 +11,7 @@ namespace Me.Siarh.Common.Persistence
     {
         Task<bool> Create(T entity);
         Task<bool> Update(T entity);
-        Task<bool> Delete(int id);
+        Task<bool> Delete(T entity);
         IQueryable<T> Filter(U filter);
         Task<IEnumerable<T>> FilterPaginated(U filter);
 

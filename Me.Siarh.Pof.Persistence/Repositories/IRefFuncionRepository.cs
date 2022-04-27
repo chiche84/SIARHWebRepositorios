@@ -11,7 +11,7 @@ namespace Me.Siarh.Pof.Persistence
 {
     public interface IRefFuncionRepository : IGenericRepository<RefFuncion, RefFuncionFilter>
     {
-      
+        int OtherMethod();
 
     }
 }

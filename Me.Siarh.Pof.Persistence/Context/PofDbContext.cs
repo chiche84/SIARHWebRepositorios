@@ -23,14 +23,14 @@ namespace Me.Siarh.Pof.Persistence
 
             modelBuilder.Entity<RefFuncion>(entity =>
             {
-                entity.HasKey(e => e.IdFuncion);
+                entity.HasKey(e => e.Id);
 
                 entity.ToTable("RefFuncion");
 
                 entity.HasComment("Propio del presupuesto. Clasificacion de gastos por funcion. Ejemplo: Educacion elemental; media y tecnica");
 
-                entity.Property(e => e.IdFuncion)
-                    .HasColumnName("idFuncion")
+                entity.Property(e => e.Id)
+                    .HasColumnName("IdRefFuncion")
                     .HasComment("Clave primaria, NO autoincrementable. Identificador de funcion");
 
                 entity.Property(e => e.EstaActivo)

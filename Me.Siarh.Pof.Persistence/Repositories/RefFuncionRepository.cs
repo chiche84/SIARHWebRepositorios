@@ -22,63 +22,13 @@ namespace Me.Siarh.Pof.Persistence
         {
         }
 
-        public override async Task<bool> Create(RefFuncion entity)
-        {
-            try
-            {
-                entity.EstaActivo = true;
-                await dbSet.AddAsync(entity);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "{Repo} Upsert function error", typeof(RefFuncionRepository));
-                return false;
-            }
-        }
-
-        public override async Task<bool> Update(RefFuncion entity)
-        {
-            try
-            {
-                var existingFuncion = await dbSet.Where(x => x.IdFuncion == entity.IdFuncion).FirstOrDefaultAsync();
-
-                if (existingFuncion == null) return false;
-
-                existingFuncion.FuncionDesc = entity.FuncionDesc;
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "{Repo} Upsert function error", typeof(RefFuncionRepository));
-                return false;
-            }
-        }
-
-        public override async Task<bool> Delete(int id)
-        {
-            try
-            {
-                var existingFuncion = await dbSet.Where(x => x.IdFuncion == id).FirstOrDefaultAsync();
-
-                if (existingFuncion == null) return false;
-
-                existingFuncion.EstaActivo = false;
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "{Repo} Delete function error", typeof(RefFuncionRepository));
-                return false;
-            }
-        }
 
         public override IQueryable<RefFuncion> Filter(RefFuncionFilter filter)
         {
             var query = dbSet.AsQueryable();
 
             if (filter.Id != 0)
-                query = query.Where(x => x.IdFuncion == filter.Id);
+                query = query.Where(x => x.Id == filter.Id);
 
             if (filter.FuncionDesc != null)
                 query = query.Where(x => x.FuncionDesc == filter.FuncionDesc);
@@ -90,13 +40,18 @@ namespace Me.Siarh.Pof.Persistence
                 query = query.Where(x => x.EstaActivo == filter.EstaActivo);
 
             if (filter.ExcludeIds.Any())
-                query = query.Where(x => !filter.ExcludeIds.Contains(x.IdFuncion));
+                query = query.Where(x => !filter.ExcludeIds.Contains(x.Id));
 
             if (filter.IncludeIds.Any())
-                query = query.Where(x => filter.IncludeIds.Contains(x.IdFuncion));
+                query = query.Where(x => filter.IncludeIds.Contains(x.Id));
 
             return query;
 
+        }
+
+        public int OtherMethod()
+        {
+            return 1;
         }
 
     }
