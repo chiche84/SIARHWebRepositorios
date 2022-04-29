@@ -31,7 +31,6 @@ namespace Me.Siarh.Common.Persistence
         {
             try
             {
-                entity.EstaActivo = true;
                 await dbSet.AddAsync(entity);
                 return true;
             }

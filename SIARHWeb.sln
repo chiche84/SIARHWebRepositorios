@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Me.Siarh.Pof.Application", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Me.Siarh.Pof.Api", "Me.Siarh.Pof.Api\Me.Siarh.Pof.Api.csproj", "{681EA804-2AF4-42D7-9027-BDF6B205255A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Me.Siarh.Pof.Quality", "Me.Siarh.Pof.Test\Me.Siarh.Pof.Quality.csproj", "{5DEA3FC9-E8A9-4E05-B327-70D66DDFA3BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{681EA804-2AF4-42D7-9027-BDF6B205255A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{681EA804-2AF4-42D7-9027-BDF6B205255A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{681EA804-2AF4-42D7-9027-BDF6B205255A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DEA3FC9-E8A9-4E05-B327-70D66DDFA3BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DEA3FC9-E8A9-4E05-B327-70D66DDFA3BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DEA3FC9-E8A9-4E05-B327-70D66DDFA3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DEA3FC9-E8A9-4E05-B327-70D66DDFA3BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

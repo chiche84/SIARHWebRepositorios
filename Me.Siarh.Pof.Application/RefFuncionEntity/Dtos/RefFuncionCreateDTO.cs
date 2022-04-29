@@ -12,5 +12,8 @@ namespace Me.Siarh.Pof.Application.RefFuncionEntity.Dtos
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(120)]
         public string? FuncionDesc { get; set; }
+
+        public bool EstaActivo { get; set; }   = true;
+
     }
 }
