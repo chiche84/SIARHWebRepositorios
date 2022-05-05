@@ -22,11 +22,7 @@ namespace Me.Siarh.Pof.Domain.Entities
         public DateTime? FechaEliminacion { get; set; }
 
         //public virtual ICollection<RefFuncionxEjer> RefFuncionxEjers { get; set; }
-
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }
+      
 
     }
 }
